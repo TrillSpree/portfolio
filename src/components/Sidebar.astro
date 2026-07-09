@@ -1,0 +1,25 @@
+---
+const navItems = [
+  { href: '/work', label: 'Work' },
+  { href: '/writing', label: 'Writing' },
+  { href: '/about', label: 'About' },
+];
+---
+
+<aside class="site-sidebar">
+  <a href="/" class="site-sidebar__logo">Portfolio</a>
+
+  <nav class="site-sidebar__nav" aria-label="Primary">
+    <ul class="site-sidebar__nav-list">
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={item.href} class="site-sidebar__nav-link">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>

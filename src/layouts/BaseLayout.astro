@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
@@ -32,14 +32,16 @@ const layoutClass =
     <title>{title}</title>
   </head>
   <body class="site">
-    <Header />
+    <Sidebar />
 
-    <main class="site-main">
-      <div class={layoutClass}>
-        <slot />
-      </div>
-    </main>
+    <div class="site-content">
+      <main class="site-main">
+        <div class={layoutClass}>
+          <slot />
+        </div>
+      </main>
 
-    <Footer />
+      <Footer />
+    </div>
   </body>
 </html>
