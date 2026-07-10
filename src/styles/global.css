@@ -336,9 +336,14 @@ h6,
 }
 
 .site-sidebar__logo {
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  line-height: var(--line-height-tight);
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.site-sidebar__logo img {
+  width: auto;
+  height: 24px;
 }
 
 .site-sidebar__toggle {

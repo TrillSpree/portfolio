@@ -1,14 +1,24 @@
 ---
+import logo from '../assets/logo-lockup.svg';
+
 const navItems = [
+  { href: '/', label: 'Home' },
   { href: '/work', label: 'Work' },
-  { href: '/writing', label: 'Writing' },
+  { href: '/experience', label: 'Experience' },
   { href: '/about', label: 'About' },
 ];
 ---
 
 <aside class="site-sidebar">
   <div class="site-sidebar__top">
-    <a href="/" class="site-sidebar__logo">Portfolio</a>
+    <a href="/" class="site-sidebar__logo">
+      <img
+        src={logo.src}
+        width={logo.width}
+        height={logo.height}
+        alt="Miles Anderson"
+      />
+    </a>
 
     <button
       type="button"
