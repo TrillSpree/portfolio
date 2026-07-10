@@ -6,21 +6,12 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
-  layout?: 'default' | 'wide' | 'narrow';
 }
 
 const {
   title = 'Portfolio',
   description = '',
-  layout = 'default',
 } = Astro.props;
-
-const layoutClass =
-  layout === 'wide'
-    ? 'layout layout--wide'
-    : layout === 'narrow'
-      ? 'layout layout--narrow'
-      : 'layout';
 ---
 
 <!doctype html>
@@ -36,7 +27,7 @@ const layoutClass =
 
     <div class="site-content">
       <main class="site-main">
-        <div class={layoutClass}>
+        <div class="layout">
           <slot />
         </div>
       </main>

@@ -328,10 +328,38 @@ h6,
   padding: var(--space-lg);
 }
 
+.site-sidebar__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
 .site-sidebar__logo {
   font-size: var(--font-size-lg);
   font-weight: 600;
   line-height: var(--line-height-tight);
+}
+
+.site-sidebar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.site-sidebar__toggle-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin-inline: auto;
+  background: currentColor;
 }
 
 .site-sidebar__nav {
@@ -347,6 +375,36 @@ h6,
 .site-sidebar__nav-link {
   font-size: var(--font-size-sm);
   line-height: var(--line-height-normal);
+}
+
+@media (max-width: 767px) {
+  .site {
+    flex-direction: column;
+  }
+
+  .site-sidebar {
+    width: 100%;
+    min-height: 0;
+    padding-block: var(--space-md);
+    padding-inline: var(--layout-padding-inline);
+  }
+
+  .site-sidebar__toggle {
+    display: flex;
+  }
+
+  .site-sidebar__nav {
+    display: none;
+    margin-top: var(--space-md);
+  }
+
+  .site-sidebar.is-open .site-sidebar__nav {
+    display: block;
+  }
+
+  .site-content {
+    min-height: 0;
+  }
 }
 
 .site-content {
@@ -380,18 +438,10 @@ h6,
    ========================================================================== */
 
 .layout {
-  --layout-max-width: none;
+  --layout-max-width: 960px;
 
   width: 100%;
   max-width: var(--layout-max-width);
   margin-inline: auto;
   padding-inline: var(--layout-padding-inline);
-}
-
-.layout--wide {
-  /* Case-study layouts — assign --layout-max-width when the token is finalized */
-}
-
-.layout--narrow {
-  /* Editorial / writing layouts — assign --layout-max-width when the token is finalized */
 }

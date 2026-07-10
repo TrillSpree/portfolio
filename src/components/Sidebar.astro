@@ -7,9 +7,23 @@ const navItems = [
 ---
 
 <aside class="site-sidebar">
-  <a href="/" class="site-sidebar__logo">Portfolio</a>
+  <div class="site-sidebar__top">
+    <a href="/" class="site-sidebar__logo">Portfolio</a>
 
-  <nav class="site-sidebar__nav" aria-label="Primary">
+    <button
+      type="button"
+      class="site-sidebar__toggle"
+      aria-expanded="false"
+      aria-controls="site-sidebar-nav"
+      aria-label="Menu"
+    >
+      <span class="site-sidebar__toggle-bar" aria-hidden="true"></span>
+      <span class="site-sidebar__toggle-bar" aria-hidden="true"></span>
+      <span class="site-sidebar__toggle-bar" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <nav class="site-sidebar__nav" id="site-sidebar-nav" aria-label="Primary">
     <ul class="site-sidebar__nav-list">
       {
         navItems.map((item) => (
@@ -23,3 +37,23 @@ const navItems = [
     </ul>
   </nav>
 </aside>
+
+<script>
+  const sidebar = document.querySelector('.site-sidebar');
+  const toggle = document.querySelector('.site-sidebar__toggle');
+  const nav = document.querySelector('#site-sidebar-nav');
+
+  if (sidebar && toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const isOpen = sidebar.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
