@@ -3,6 +3,130 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Portfolio">
-  <h1 class="mt-2xl">Portfolio</h1>
-  <p class="mt-md leading-loose">Site shell is ready.</p>
+  <div class="home">
+    <section class="home-hero">
+      <p class="home-hero__greeting">Hello.</p>
+      <h1 class="home-hero__headline">
+        Placeholder intro headline<br />
+        across multiple lines.
+      </h1>
+      <p class="home-hero__supporting leading-loose">
+        Placeholder supporting paragraph. This will become a short summary of who you are and what you do.
+      </p>
+      <a href="#" class="home-hero__cta">Let's chat</a>
+    </section>
+
+    <section class="home-section">
+      <div class="home-section__header">
+        <h2 class="home-section__label">Featured project</h2>
+        <a href="/work" class="home-section__link">VIEW ALL</a>
+      </div>
+      <div class="home-placeholder home-placeholder--featured" aria-hidden="true"></div>
+    </section>
+
+    <section class="home-section">
+      <div class="home-section__header">
+        <h2 class="home-section__label">Featured</h2>
+        <a href="#" class="home-section__link">VIEW ALL</a>
+      </div>
+      <div class="home-grid home-grid--2">
+        <div class="home-placeholder" aria-hidden="true"></div>
+        <div class="home-placeholder" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="home-section__header">
+        <h2 class="home-section__label">Featured</h2>
+        <a href="#" class="home-section__link">VIEW ALL</a>
+      </div>
+      <div class="home-grid home-grid--3">
+        <div class="home-placeholder" aria-hidden="true"></div>
+        <div class="home-placeholder" aria-hidden="true"></div>
+        <div class="home-placeholder" aria-hidden="true"></div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4xl);
+    padding-block: var(--space-3xl);
+  }
+
+  .home-hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .home-hero__greeting {
+    color: var(--color-text-secondary);
+  }
+
+  .home-hero__headline {
+    font-size: var(--font-size-3xl);
+    line-height: var(--line-height-tight);
+  }
+
+  .home-hero__supporting {
+    max-width: var(--text-measure);
+    color: var(--color-text-secondary);
+  }
+
+  .home-hero__cta {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: var(--space-sm) var(--space-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .home-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .home-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  .home-section__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+  }
+
+  .home-section__link {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .home-placeholder {
+    min-height: 240px;
+    background: var(--color-surface);
+  }
+
+  .home-placeholder--featured {
+    min-height: 480px;
+  }
+
+  .home-grid {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .home-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+</style>

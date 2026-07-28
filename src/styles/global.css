@@ -22,6 +22,12 @@
   --font-size-2xl: 35.16px;
   --font-size-3xl: 43.95px;
 
+  /* Font family & weights */
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
   /* Line-height — hand-typed since Figma can't export these as ratios */
   --line-height-tight: 1.1;
   --line-height-normal: 1.3;
@@ -112,7 +118,9 @@ a {
    ========================================================================== */
 
 body {
+  font-family: var(--font-body);
   font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
 }
 
@@ -388,8 +396,23 @@ h6,
 }
 
 .site-sidebar__nav-link {
+  display: block;
+  padding: var(--space-sm);
+  border-radius: 6px;
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+.site-sidebar__nav-link:hover {
+  background: var(--color-surface);
+}
+
+.site-sidebar__nav-link.is-active {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
 }
 
 @media (max-width: 767px) {

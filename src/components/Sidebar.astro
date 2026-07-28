@@ -7,6 +7,16 @@ const navItems = [
   { href: '/experience', label: 'Experience' },
   { href: '/about', label: 'About' },
 ];
+
+const { pathname } = Astro.url;
+
+const isActive = (href: string) => {
+  if (href === '/') {
+    return pathname === '/' || pathname === '';
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+};
 ---
 
 <aside class="site-sidebar">
@@ -38,7 +48,13 @@ const navItems = [
       {
         navItems.map((item) => (
           <li>
-            <a href={item.href} class="site-sidebar__nav-link">
+            <a
+              href={item.href}
+              class:list={[
+                'site-sidebar__nav-link',
+                { 'is-active': isActive(item.href) },
+              ]}
+            >
               {item.label}
             </a>
           </li>
