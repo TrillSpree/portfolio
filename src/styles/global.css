@@ -380,9 +380,10 @@ h6,
 .site-sidebar__toggle-bar {
   display: block;
   width: 20px;
-  height: 2px;
+  height: 0;
   margin-inline: auto;
-  background: currentColor;
+  border-top: 1px solid currentColor;
+  background: transparent;
 }
 
 .site-sidebar__nav {
@@ -397,12 +398,16 @@ h6,
 
 .site-sidebar__nav-link {
   display: block;
-  padding: var(--space-sm);
+  padding-block: var(--space-sm);
+  padding-inline: var(--space-md);
   border-radius: 6px;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
+  transition:
+    background-color 200ms ease-out,
+    color 200ms ease-out;
 }
 
 .site-sidebar__nav-link:hover {
@@ -415,29 +420,90 @@ h6,
   font-weight: var(--font-weight-semibold);
 }
 
+@media (min-width: 768px) {
+  .site-sidebar {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    padding-top: var(--space-5xl);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .site-sidebar__top {
+    position: absolute;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    left: var(--space-lg);
+  }
+
+  .site-sidebar__nav {
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 767px) {
   .site {
     flex-direction: column;
   }
 
   .site-sidebar {
+    position: relative;
+    z-index: 100;
     width: 100%;
     min-height: 0;
     padding-block: var(--space-md);
     padding-inline: var(--layout-padding-inline);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-sidebar__top {
+    position: relative;
+    z-index: 102;
+    background: var(--color-background);
   }
 
   .site-sidebar__toggle {
     display: flex;
+    color: var(--color-text-primary);
+  }
+
+  .site-sidebar__toggle-bar {
+    transform-origin: center;
+  }
+
+  .site-sidebar.is-open .site-sidebar__toggle-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .site-sidebar.is-open .site-sidebar__toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .site-sidebar.is-open .site-sidebar__toggle-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
   }
 
   .site-sidebar__nav {
     display: none;
-    margin-top: var(--space-md);
+    margin-top: 0;
   }
 
   .site-sidebar.is-open .site-sidebar__nav {
-    display: block;
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 101;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background);
+    padding: var(--layout-padding-inline);
+  }
+
+  .site-sidebar.is-open .site-sidebar__nav-list {
+    align-items: center;
+    gap: var(--space-md);
   }
 
   .site-content {
@@ -457,18 +523,68 @@ h6,
   display: flex;
   flex: 1;
   flex-direction: column;
+  padding-block: var(--space-5xl);
 }
 
 .site-footer {
+  padding-block: var(--space-5xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer__content {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-block: var(--space-lg);
-  padding-inline: var(--layout-padding-inline);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.site-footer__headline {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+.site-footer__body {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
 }
 
 .site-footer__copy {
+  margin-top: var(--space-2xl);
   font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.button-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: auto;
+  height: 48px;
+  padding-inline: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  transition:
+    background-color 200ms ease-out,
+    color 200ms ease-out,
+    border-color 200ms ease-out;
+}
+
+.button-accent:hover {
+  border-color: var(--color-accent);
+  color: var(--color-background);
+  background: var(--color-accent);
 }
 
 /* ==========================================================================

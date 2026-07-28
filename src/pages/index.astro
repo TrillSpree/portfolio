@@ -7,13 +7,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section class="home-hero">
       <p class="home-hero__greeting">Hello.</p>
       <h1 class="home-hero__headline">
-        Placeholder intro headline<br />
-        across multiple lines.
+        I'm Miles, a product designer and leader with 12+ years of
+        experience delivering impactful enterprise and consumer products
+        used by millions of people.
       </h1>
-      <p class="home-hero__supporting leading-loose">
-        Placeholder supporting paragraph. This will become a short summary of who you are and what you do.
+      <p class="home-hero__supporting">
+        I work remotely from Houston, TX, most recently with the Xbox
+        Design Team at Microsoft. Interested in working with me? I'm open
+        to new opportunities.
       </p>
-      <a href="#" class="home-hero__cta">Let's chat</a>
+      <a href="mailto:letschat@miles-anderson.com" class="button-accent">
+        Let's chat
+      </a>
     </section>
 
     <section class="home-section">
@@ -54,34 +59,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-4xl);
-    padding-block: var(--space-3xl);
   }
 
   .home-hero {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    width: 100%;
   }
 
   .home-hero__greeting {
-    color: var(--color-text-secondary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
   }
 
   .home-hero__headline {
     font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-light);
     line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
   }
 
   .home-hero__supporting {
-    max-width: var(--text-measure);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
     color: var(--color-text-secondary);
-  }
-
-  .home-hero__cta {
-    display: inline-flex;
-    align-self: flex-start;
-    padding: var(--space-sm) var(--space-lg);
-    border: 1px solid var(--color-border);
   }
 
   .home-section {
