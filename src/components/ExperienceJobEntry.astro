@@ -1,0 +1,77 @@
+---
+interface Props {
+  company?: string;
+  role?: string;
+  dates?: string;
+  description?: string;
+}
+
+const {
+  company = 'Company name',
+  role = 'Role name',
+  dates = '2020 – Present',
+  description = 'Placeholder description for this role. Two to three sentences summarizing responsibilities, impact, and scope of work during this tenure.',
+} = Astro.props;
+---
+
+<article class="job-entry">
+  <div class="job-entry__logo" aria-hidden="true"></div>
+
+  <div class="job-entry__content">
+    <h3 class="job-entry__company">{company}</h3>
+    <p class="job-entry__role">{role}</p>
+    <p class="job-entry__dates">{dates}</p>
+    <p class="job-entry__description">{description}</p>
+  </div>
+</article>
+
+<style>
+  .job-entry {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .job-entry__logo {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-surface);
+  }
+
+  .job-entry__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .job-entry__company {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+  }
+
+  .job-entry__role {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-primary);
+  }
+
+  .job-entry__dates {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-secondary);
+  }
+
+  .job-entry__description {
+    margin-top: var(--space-sm);
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-loose);
+    color: var(--color-text-primary);
+  }
+</style>

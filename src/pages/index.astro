@@ -5,17 +5,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="Portfolio">
   <div class="home">
     <section class="home-hero">
-      <p class="home-hero__greeting">Hello.</p>
-      <h1 class="home-hero__headline">
-        I'm Miles, a product designer and leader with 12+ years of
-        experience delivering impactful enterprise and consumer products
-        used by millions of people.
-      </h1>
-      <p class="home-hero__supporting">
-        I work remotely from Houston, TX, most recently with the Xbox
-        Design Team at Microsoft. Interested in working with me? I'm open
-        to new opportunities.
-      </p>
+      <div class="home-hero__text">
+        <p class="home-hero__greeting">Hello.</p>
+        <h1 class="home-hero__headline">
+          I'm Miles, a product designer and leader with 12+ years bringing
+          enterprise systems thinking and consumer craft to products used by
+          millions of people.
+        </h1>
+        <p class="home-hero__supporting">
+          Based in the great city of Houston, TX. Most recently led product
+          design for the Xbox team at Microsoft as a Design Architect. Currently
+          exploring remote or in-person Principal and Staff-level roles.
+        </p>
+      </div>
       <a href="mailto:letschat@miles-anderson.com" class="button-accent">
         Let's chat
       </a>
@@ -64,20 +66,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .home-hero {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-2xl);
     width: 100%;
   }
 
+  .home-hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
   .home-hero__greeting {
+    font-family: var(--font-serif);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-regular);
     color: var(--color-text-primary);
   }
 
   .home-hero__headline {
+    font-family: var(--font-serif);
     font-size: var(--font-size-3xl);
     font-weight: var(--font-weight-light);
-    line-height: var(--line-height-tight);
+    line-height: var(--line-height-normal);
     color: var(--color-text-primary);
   }
 

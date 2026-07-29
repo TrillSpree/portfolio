@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import 'astro/components/viewtransitions.css';
+import { ClientRouter, fade } from 'astro:transitions';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 
@@ -12,6 +14,8 @@ const {
   title = 'Portfolio',
   description = '',
 } = Astro.props;
+
+const mainTransition = fade({ duration: '250ms' });
 ---
 
 <!doctype html>
@@ -24,21 +28,22 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Serif:wght@300;400&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
   </head>
   <body class="site">
-    <Sidebar />
+    <Sidebar transition:persist />
 
     <div class="site-content">
-      <main class="site-main">
+      <main class="site-main" transition:animate={mainTransition}>
         <div class="layout">
           <slot />
         </div>
       </main>
 
-      <Footer />
+      <Footer transition:persist />
     </div>
   </body>
 </html>

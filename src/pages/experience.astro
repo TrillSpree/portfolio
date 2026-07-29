@@ -1,8 +1,118 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ExperienceJobEntry from '../components/ExperienceJobEntry.astro';
 ---
 
 <BaseLayout title="Experience">
-  <h1>Experience</h1>
-  <p>Career history, coming soon.</p>
+  <div class="experience">
+    <section class="experience-intro">
+      <h1 class="page-title">Experience</h1>
+
+      <div class="experience-intro__content">
+        <p class="experience-intro__supporting">
+          More than a decade spent moving between enterprise
+          systems and consumer products, leading design for teams shipping to
+          millions and building the internal tools that support them. Here's
+          how that path has unfolded.
+        </p>
+        <a href="/resume.pdf" class="button-accent">Download resume</a>
+      </div>
+    </section>
+
+    <section class="experience-jobs">
+      <ExperienceJobEntry
+        company="Microsoft — Xbox"
+        role="Design Architect → Senior Design Manager → Senior Designer"
+        dates="2020 – 2026"
+        description="Led design for the flagship Xbox mobile app, including end-to-end product direction and delivery supporting the Series S/X launch and subsequent feature launches. As Design Architect, influenced product direction and strategy as a hybrid designer and product leader, by aligning cross-functional roadmaps and presenting strategic initiatives to senior leadership."
+      />
+      <ExperienceJobEntry
+        company="IBM — Cloud & Digital Business Group"
+        role="Product Designer"
+        dates="2014 – 2020"
+        description="Led DevTools UX for IBM Cloud, defining product direction for developer and DevOps experiences and improving platform usability across the board. Earlier, designed IBM's first self-service digital marketplace, including the backend management tools built for enterprise customers."
+      />
+      <ExperienceJobEntry
+        company="Zappos"
+        role="Visual Designer"
+        dates="2012 – 2013"
+        description="Produced web and print marketing assets for Zappos and 6pm, driving seasonal art direction and merchandising goals."
+      />
+    </section>
+
+    <section class="experience-testimonials">
+      <h2 class="experience-section__heading">Testimonials</h2>
+      <div class="experience-grid experience-grid--3">
+        <div class="experience-placeholder" aria-hidden="true"></div>
+        <div class="experience-placeholder" aria-hidden="true"></div>
+        <div class="experience-placeholder" aria-hidden="true"></div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .experience {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4xl);
+  }
+
+  .experience-intro__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2xl);
+  }
+
+  .experience-intro__supporting {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-secondary);
+  }
+
+  .experience-jobs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .experience-jobs :global(.job-entry + .job-entry) {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .experience-testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .experience-section__heading {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+  }
+
+  .experience-placeholder {
+    min-height: 240px;
+    background: var(--color-surface);
+  }
+
+  .experience-grid {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .experience-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 767px) {
+    .experience-grid--3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

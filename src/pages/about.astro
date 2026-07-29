@@ -1,8 +1,106 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoPlaceholder from '../components/VideoPlaceholder.astro';
 ---
 
 <BaseLayout title="About">
-  <h1>About</h1>
-  <p>More about me, coming soon.</p>
+  <div class="about">
+    <h1 class="page-title">About</h1>
+
+    <VideoPlaceholder />
+
+    <section class="about-section">
+      <h2 class="about-section__heading">How I got here</h2>
+      <div class="about-prose">
+        <p>
+          For as long as I can remember, I've loved to draw. I never had any
+          real formal training, but it came to me naturally and I spent all
+          my spare time with a pencil in hand. When it came time to figure out
+          what I wanted to be when I "grew up," I had little to no support in
+          taking the path of a professional artist. So I went looking for
+          something adjacent, and found graphic design almost by accident.
+          Turned out it was something I'd already been doing without a name
+          for it.
+        </p>
+        <p>
+          I went on to study Communication Design at Texas State University,
+          expecting to end up somewhere in traditional graphic design,
+          branding, or advertising worlds. Then the iPhone came out, and the
+          whole direction of design shifted. I dove headfirst into the web
+          and product side of the industry instead, and never looked back.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2 class="about-section__heading">What keeps me here</h2>
+      <div class="about-prose">
+        <p>
+          Product design, at its core, is about making sense of ambiguity.
+          That's not a side effect of the job. It is the job. Most of what I
+          enjoy is playing detective: taking an unclear problem and finding
+          the path through it. Mix that with a love of aesthetics and
+          craftsmanship, and you have what I love most about this industry.
+        </p>
+        <p>
+          The other piece is people. Some of the best parts of this career
+          have come from being in rooms with people smarter than me and
+          learning from them. That's stayed true across every team I've been
+          on. The many talented, intelligent, and interesting individuals have
+          helped me grow in both a professional and personal capacity. I'm
+          forever grateful for this.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2 class="about-section__heading">Outside of work</h2>
+      <div class="about-prose">
+        <p>
+          I'm a husband and father first, and that's where most of my time
+          and attention goes these days. Staying active and healthy matters to
+          me, and I try to keep that a consistent part of life, not an
+          afterthought. And even though most of my creative energy goes into
+          the work itself these days, I try to draw and paint when I can
+          (even if it's just crayons and finger paint with the kiddos).
+        </p>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-section + .about-section {
+    margin-top: var(--space-2xl);
+  }
+
+  .about-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .about-section__heading {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+  }
+
+  .about-prose p {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-loose);
+    color: var(--color-text-primary);
+  }
+
+  .about-prose p + p {
+    margin-top: var(--space-lg);
+  }
+</style>
