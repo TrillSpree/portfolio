@@ -1,0 +1,14 @@
+---
+interface Props {
+  variant?: 'default' | 'hero';
+  label?: string;
+}
+
+const { variant = 'default', label = 'Image placeholder' } = Astro.props;
+---
+
+<div
+  class:list={['image-placeholder', { 'image-placeholder--hero': variant === 'hero' }]}
+  role="img"
+  aria-label={label}
+></div>

@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ExperienceJobEntry from '../components/ExperienceJobEntry.astro';
+import xboxLogo from '../assets/icons/xbox.svg?raw';
+import ibmLogo from '../assets/icons/ibm.svg?raw';
+import zapposLogo from '../assets/icons/zappos.svg?raw';
 ---
 
 <BaseLayout title="Experience">
@@ -21,18 +24,21 @@ import ExperienceJobEntry from '../components/ExperienceJobEntry.astro';
 
     <section class="experience-jobs">
       <ExperienceJobEntry
-        company="Microsoft — Xbox"
-        role="Design Architect → Senior Design Manager → Senior Designer"
+        logoSvg={xboxLogo}
+        company="Microsoft, Xbox"
+        role="Design Architect"
         dates="2020 – 2026"
         description="Led design for the flagship Xbox mobile app, including end-to-end product direction and delivery supporting the Series S/X launch and subsequent feature launches. As Design Architect, influenced product direction and strategy as a hybrid designer and product leader, by aligning cross-functional roadmaps and presenting strategic initiatives to senior leadership."
       />
       <ExperienceJobEntry
-        company="IBM — Cloud & Digital Business Group"
+        logoSvg={ibmLogo}
+        company="IBM, Cloud"
         role="Product Designer"
         dates="2014 – 2020"
         description="Led DevTools UX for IBM Cloud, defining product direction for developer and DevOps experiences and improving platform usability across the board. Earlier, designed IBM's first self-service digital marketplace, including the backend management tools built for enterprise customers."
       />
       <ExperienceJobEntry
+        logoSvg={zapposLogo}
         company="Zappos"
         role="Visual Designer"
         dates="2012 – 2013"
@@ -50,69 +56,3 @@ import ExperienceJobEntry from '../components/ExperienceJobEntry.astro';
     </section>
   </div>
 </BaseLayout>
-
-<style>
-  .experience {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4xl);
-  }
-
-  .experience-intro__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2xl);
-  }
-
-  .experience-intro__supporting {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-normal);
-    color: var(--color-text-secondary);
-  }
-
-  .experience-jobs {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .experience-jobs :global(.job-entry + .job-entry) {
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-2xl);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .experience-testimonials {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .experience-section__heading {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-tight);
-    color: var(--color-text-primary);
-  }
-
-  .experience-placeholder {
-    min-height: 240px;
-    background: var(--color-surface);
-  }
-
-  .experience-grid {
-    display: grid;
-    gap: var(--space-lg);
-  }
-
-  .experience-grid--3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 767px) {
-    .experience-grid--3 {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

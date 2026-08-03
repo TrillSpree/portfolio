@@ -1,0 +1,112 @@
+---
+import type { CaseStudy } from '../data/case-studies';
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Props {
+  study: CaseStudy;
+}
+
+const { study } = Astro.props;
+---
+
+<article class="case-study">
+  <header class="case-study__header">
+    <h1 class="case-study__title">{study.title}</h1>
+    <p class="case-study__supporting">{study.supporting}</p>
+  </header>
+
+  <div class="case-study-meta">
+    <div class="case-study-meta__column">
+      <h2 class="case-study-meta__heading">My role</h2>
+      <ul class="case-study-meta__list">
+        {
+          study.role.map((item) => (
+            <li class="case-study-meta__item">
+              <span class="case-study-meta__label">{item.label}</span>
+              <span class="case-study-meta__name">{item.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="case-study-meta__column">
+      <h2 class="case-study-meta__heading">The team</h2>
+      <ul class="case-study-meta__list">
+        {
+          study.team.map((item) => (
+            <li class="case-study-meta__item">
+              <span class="case-study-meta__label">{item.label}</span>
+              <span class="case-study-meta__name">{item.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="case-study-meta__column">
+      <h2 class="case-study-meta__heading">Press</h2>
+      <ul class="case-study-meta__list">
+        {
+          study.press.map((item) => (
+            <li class="case-study-meta__item">
+              <span class="case-study-meta__label">{item.label}</span>
+              {
+                item.href ? (
+                  <a href={item.href} class="case-study-meta__name case-study-meta__link">
+                    {item.name}
+                  </a>
+                ) : (
+                  <span class="case-study-meta__name">{item.name}</span>
+                )
+              }
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <ImagePlaceholder variant="hero" label={`${study.title} hero image`} />
+
+  <aside class="case-study-impact" aria-label="Impact">
+    <h2 class="case-study-impact__heading">Impact</h2>
+    <ul class="case-study-impact__list">
+      {study.impact.map((item) => <li>{item}</li>)}
+    </ul>
+  </aside>
+
+  <section class="case-study-section">
+    <h2 class="case-study-section__heading">Problem</h2>
+    <div class="long-form">
+      {study.problem.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <ImagePlaceholder label={`${study.title} problem image`} />
+  </section>
+
+  <section class="case-study-section">
+    <h2 class="case-study-section__heading">Explorations</h2>
+    <div class="long-form">
+      {study.explorations.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <div class="case-study-grid case-study-grid--2">
+      <ImagePlaceholder label={`${study.title} exploration image 1`} />
+      <ImagePlaceholder label={`${study.title} exploration image 2`} />
+    </div>
+  </section>
+
+  <section class="case-study-section">
+    <h2 class="case-study-section__heading">Solution</h2>
+    <div class="long-form">
+      {study.solution.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <ImagePlaceholder variant="hero" label={`${study.title} solution image`} />
+  </section>
+
+  <section class="case-study-section">
+    <h2 class="case-study-section__heading">Takeaway</h2>
+    <div class="long-form">
+      {study.takeaway.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </section>
+</article>

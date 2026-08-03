@@ -1,8 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { caseStudies } from '../data/case-studies';
 ---
 
 <BaseLayout title="Work">
-  <h1 class="page-title">Work</h1>
-  <p>Selected case studies, coming soon.</p>
+  <div class="work">
+    <h1 class="page-title">Work</h1>
+
+    <ul class="work-grid">
+      {
+        caseStudies.map((study) => (
+          <li>
+            <a href={`/work/${study.slug}`} class="work-card">
+              <div class="work-card__content">
+                <h2 class="work-card__title">Placeholder</h2>
+                <p class="work-card__description">
+                  Aenean eu leo quam. Pellentesque ornare sem lacinia quam
+                  venenatis vestibulum. Cras mattis consectetur purus sit amet
+                  fermentum, sed posuere consectetur est at lobortis.
+                </p>
+              </div>
+              <div class="work-card__image" aria-hidden="true"></div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </BaseLayout>

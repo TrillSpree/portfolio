@@ -143,4 +143,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .home-grid--3 {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  @media (max-width: 767px) {
+    .home-hero__greeting {
+      font-size: var(--font-size-lg);
+    }
+
+    .home-hero__headline {
+      font-size: var(--font-size-2xl);
+    }
+  }
 </style>
