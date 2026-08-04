@@ -1,6 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { caseStudies } from '../data/case-studies';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const work = (await getCollection('work')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
 ---
 
 <BaseLayout title="Work">
@@ -9,19 +14,9 @@ import { caseStudies } from '../data/case-studies';
 
     <ul class="work-grid">
       {
-        caseStudies.map((study) => (
+        work.map((entry) => (
           <li>
-            <a href={`/work/${study.slug}`} class="work-card">
-              <div class="work-card__content">
-                <h2 class="work-card__title">Placeholder</h2>
-                <p class="work-card__description">
-                  Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                  venenatis vestibulum. Cras mattis consectetur purus sit amet
-                  fermentum, sed posuere consectetur est at lobortis.
-                </p>
-              </div>
-              <div class="work-card__image" aria-hidden="true"></div>
-            </a>
+            <ProjectCard entry={entry} />
           </li>
         ))
       }

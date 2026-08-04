@@ -1,0 +1,12 @@
+---
+import { renderMarkdownToHtml } from '../utils/renderMarkdown';
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+const html = renderMarkdownToHtml(content);
+---
+
+<div class="long-form" set:html={html} />

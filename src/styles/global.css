@@ -363,7 +363,7 @@ h6,
 
 .site-sidebar__logo img {
   width: auto;
-  height: 24px;
+  height: 32px;
 }
 
 .site-sidebar__toggle {
@@ -403,7 +403,7 @@ h6,
   padding-block: var(--space-sm);
   padding-inline: var(--space-md);
   border-radius: 6px;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
@@ -798,7 +798,14 @@ h6,
 .case-study {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4xl);
+}
+
+.case-study > * + * {
+  margin-top: var(--space-4xl);
+}
+
+.case-study__header + * {
+  margin-top: var(--space-2xl);
 }
 
 .case-study__header {
@@ -807,26 +814,44 @@ h6,
   gap: var(--space-lg);
 }
 
+.case-study__header .page-title {
+  padding-bottom: 0;
+}
+
 .case-study__title {
+  font-family: var(--font-serif);
   font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-light);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
 }
 
-.case-study__supporting {
+.case-study__description {
+  font-family: var(--font-body);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
   color: var(--color-text-secondary);
 }
 
-.case-study-meta {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.case-study__gallery {
+  display: flex;
+  flex-direction: column;
   gap: var(--space-2xl);
-  padding-block: var(--space-2xl);
-  border-block: 1px solid var(--color-border);
+}
+
+.case-study__gallery-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.case-study-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xl);
+  align-items: start;
 }
 
 .case-study-meta__heading {
@@ -841,7 +866,20 @@ h6,
 .case-study-meta__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  list-style: none;
+}
+
+.case-study-meta__role,
+.case-study-meta__value {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+.case-study-meta__value {
   margin-top: var(--space-lg);
 }
 
@@ -867,6 +905,34 @@ h6,
 
 .case-study-meta__link:hover {
   color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .case-study-meta {
+    flex-wrap: nowrap;
+  }
+
+  .case-study-meta__column:not(.case-study-meta__column--press) {
+    flex: 0 0 auto;
+  }
+
+  .case-study-meta__column--press {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .case-study-meta__column--press .case-study-meta__list,
+  .case-study-meta__column--press .case-study-meta__item {
+    min-width: 0;
+  }
+
+  .case-study-meta__column--press .case-study-meta__label,
+  .case-study-meta__column--press .case-study-meta__name {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .case-study-impact {
@@ -921,9 +987,12 @@ h6,
 }
 
 @media (max-width: 767px) {
+  .case-study__header .page-title {
+    font-size: var(--font-size-lg);
+  }
+
   .case-study-meta {
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
+    flex-direction: column;
   }
 
   .case-study-grid--2 {
@@ -948,6 +1017,7 @@ h6,
 }
 
 .work-card {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -955,16 +1025,32 @@ h6,
   padding: var(--space-xl);
   border: 1px solid var(--color-border);
   border-radius: 8px;
+  overflow: hidden;
+  isolation: isolate;
   color: inherit;
   text-decoration: none;
-  transition: background-color 200ms ease-out;
 }
 
-.work-card:hover {
-  background: var(--color-ghost-white);
+.work-card__bg {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  background-image: var(--work-card-bg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(48px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+
+.work-card:hover .work-card__bg {
+  opacity: 0.25;
 }
 
 .work-card__content {
+  position: relative;
+  z-index: 1;
   flex: 1 1 0;
   min-width: 0;
   text-align: left;
@@ -987,16 +1073,15 @@ h6,
 }
 
 .work-card__image {
+  position: relative;
+  z-index: 1;
   flex: 1 1 0;
   min-width: 0;
-  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
   background: var(--color-surface);
-  transition: background-color 200ms ease-out;
-}
-
-.work-card:hover .work-card__image {
-  background: rgba(255, 255, 255, 0.12);
+  object-fit: contain;
 }
 
 @media (max-width: 1024px) {

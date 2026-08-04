@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const featuredProject = (await getCollection('work'))
+  .filter((entry) => entry.data.featured)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
 ---
 
 <BaseLayout title="Portfolio">
@@ -23,13 +29,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
     </section>
 
-    <section class="home-section">
-      <div class="home-section__header">
-        <h2 class="home-section__label">Featured project</h2>
-        <a href="/work" class="home-section__link">VIEW ALL</a>
-      </div>
-      <div class="home-placeholder home-placeholder--featured" aria-hidden="true"></div>
-    </section>
+    {
+      featuredProject && (
+        <section class="home-section">
+          <div class="home-section__header">
+            <h2 class="home-section__label">Featured project</h2>
+            <a href="/work" class="home-section__link">VIEW ALL</a>
+          </div>
+          <ProjectCard entry={featuredProject} />
+        </section>
+      )
+    }
 
     <section class="home-section">
       <div class="home-section__header">
@@ -112,14 +122,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .home-section__label {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-normal);
   }
 
   .home-section__link {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    transition: color 200ms ease-out;
+  }
+
+  .home-section__link:hover {
+    color: var(--color-accent);
   }
 
   .home-placeholder {

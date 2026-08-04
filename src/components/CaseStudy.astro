@@ -1,112 +1,134 @@
 ---
-import type { CaseStudy } from '../data/case-studies';
-import ImagePlaceholder from './ImagePlaceholder.astro';
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import MarkdownProse from './MarkdownProse.astro';
 
 interface Props {
-  study: CaseStudy;
+  entry: CollectionEntry<'work'>;
 }
 
-const { study } = Astro.props;
+const { entry } = Astro.props;
+const {
+  title,
+  headline,
+  description,
+  role,
+  releaseDate,
+  press,
+  gallery,
+  impact,
+  problem,
+  explorations,
+  solution,
+  takeaway,
+} = entry.data;
 ---
 
 <article class="case-study">
   <header class="case-study__header">
-    <h1 class="case-study__title">{study.title}</h1>
-    <p class="case-study__supporting">{study.supporting}</p>
+    <p class="page-title">{title}</p>
+    <h1 class="case-study__title">{headline}</h1>
+    <p class="case-study__description">{description}</p>
   </header>
 
   <div class="case-study-meta">
     <div class="case-study-meta__column">
-      <h2 class="case-study-meta__heading">My role</h2>
+      <h2 class="case-study-meta__heading">Role</h2>
       <ul class="case-study-meta__list">
-        {
-          study.role.map((item) => (
-            <li class="case-study-meta__item">
-              <span class="case-study-meta__label">{item.label}</span>
-              <span class="case-study-meta__name">{item.name}</span>
-            </li>
-          ))
-        }
+        {role.map((item) => <li class="case-study-meta__role">{item}</li>)}
       </ul>
     </div>
 
     <div class="case-study-meta__column">
-      <h2 class="case-study-meta__heading">The team</h2>
-      <ul class="case-study-meta__list">
-        {
-          study.team.map((item) => (
-            <li class="case-study-meta__item">
-              <span class="case-study-meta__label">{item.label}</span>
-              <span class="case-study-meta__name">{item.name}</span>
-            </li>
-          ))
-        }
-      </ul>
+      <h2 class="case-study-meta__heading">Release date</h2>
+      <p class="case-study-meta__value">{releaseDate}</p>
     </div>
 
-    <div class="case-study-meta__column">
-      <h2 class="case-study-meta__heading">Press</h2>
-      <ul class="case-study-meta__list">
-        {
-          study.press.map((item) => (
-            <li class="case-study-meta__item">
-              <span class="case-study-meta__label">{item.label}</span>
-              {
-                item.href ? (
-                  <a href={item.href} class="case-study-meta__name case-study-meta__link">
-                    {item.name}
+    {
+      press && press.length > 0 && (
+        <div class="case-study-meta__column case-study-meta__column--press">
+          <h2 class="case-study-meta__heading">Press</h2>
+          <ul class="case-study-meta__list">
+            {press.map((item) => (
+              <li class="case-study-meta__item">
+                <span class="case-study-meta__label">{item.publication}</span>
+                {item.url ? (
+                  <a
+                    href={item.url}
+                    class="case-study-meta__name case-study-meta__link"
+                    title={item.articleTitle}
+                  >
+                    {item.articleTitle}
                   </a>
                 ) : (
-                  <span class="case-study-meta__name">{item.name}</span>
-                )
-              }
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+                  <span class="case-study-meta__name" title={item.articleTitle}>
+                    {item.articleTitle}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </div>
 
-  <ImagePlaceholder variant="hero" label={`${study.title} hero image`} />
+  {
+    gallery && gallery.length > 0 && (
+      <div class="case-study__gallery">
+        {gallery.map((item) => (
+          <Image class="case-study__gallery-image" src={item} alt="" />
+        ))}
+      </div>
+    )
+  }
 
-  <aside class="case-study-impact" aria-label="Impact">
-    <h2 class="case-study-impact__heading">Impact</h2>
-    <ul class="case-study-impact__list">
-      {study.impact.map((item) => <li>{item}</li>)}
-    </ul>
-  </aside>
+  {
+    impact && impact.length > 0 && (
+      <aside class="case-study-impact" aria-label="Impact">
+        <h2 class="case-study-impact__heading">Impact</h2>
+        <ul class="case-study-impact__list">
+          {impact.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </aside>
+    )
+  }
 
-  <section class="case-study-section">
-    <h2 class="case-study-section__heading">Problem</h2>
-    <div class="long-form">
-      {study.problem.map((paragraph) => <p>{paragraph}</p>)}
-    </div>
-    <ImagePlaceholder label={`${study.title} problem image`} />
-  </section>
+  {
+    problem && (
+      <section class="case-study-section">
+        <h2 class="case-study-section__heading">Problem</h2>
+        <MarkdownProse content={problem} />
+      </section>
+    )
+  }
 
-  <section class="case-study-section">
-    <h2 class="case-study-section__heading">Explorations</h2>
-    <div class="long-form">
-      {study.explorations.map((paragraph) => <p>{paragraph}</p>)}
-    </div>
-    <div class="case-study-grid case-study-grid--2">
-      <ImagePlaceholder label={`${study.title} exploration image 1`} />
-      <ImagePlaceholder label={`${study.title} exploration image 2`} />
-    </div>
-  </section>
+  {
+    explorations && (
+      <section class="case-study-section">
+        <h2 class="case-study-section__heading">Explorations</h2>
+        <MarkdownProse content={explorations} />
+      </section>
+    )
+  }
 
-  <section class="case-study-section">
-    <h2 class="case-study-section__heading">Solution</h2>
-    <div class="long-form">
-      {study.solution.map((paragraph) => <p>{paragraph}</p>)}
-    </div>
-    <ImagePlaceholder variant="hero" label={`${study.title} solution image`} />
-  </section>
+  {
+    solution && (
+      <section class="case-study-section">
+        <h2 class="case-study-section__heading">Solution</h2>
+        <MarkdownProse content={solution} />
+      </section>
+    )
+  }
 
-  <section class="case-study-section">
-    <h2 class="case-study-section__heading">Takeaway</h2>
-    <div class="long-form">
-      {study.takeaway.map((paragraph) => <p>{paragraph}</p>)}
-    </div>
-  </section>
+  {
+    takeaway && (
+      <section class="case-study-section">
+        <h2 class="case-study-section__heading">Takeaway</h2>
+        <MarkdownProse content={takeaway} />
+      </section>
+    )
+  }
 </article>
