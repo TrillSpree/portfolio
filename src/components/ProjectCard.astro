@@ -1,6 +1,7 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { getFirstSentence } from '../utils/getFirstSentence';
 
 interface Props {
   entry: CollectionEntry<'work'>;
@@ -10,17 +11,18 @@ const { entry } = Astro.props;
 const thumbnailSrc = entry.data.image
   ? (await getImage({ src: entry.data.image, width: 1200 })).src
   : null;
+const cardDescription = getFirstSentence(entry.data.description);
 ---
 
 <a
   href={`/work/${entry.id}`}
-  class="work-card"
+  class:list={['work-card', { 'work-card--no-image': !entry.data.image }]}
   style={thumbnailSrc ? `--work-card-bg: url("${thumbnailSrc}")` : undefined}
 >
   {thumbnailSrc && <span class="work-card__bg" aria-hidden="true" />}
   <div class="work-card__content">
     <h2 class="work-card__title">{entry.data.title}</h2>
-    <p class="work-card__description">{entry.data.description}</p>
+    <p class="work-card__description">{cardDescription}</p>
   </div>
   {
     entry.data.image && (

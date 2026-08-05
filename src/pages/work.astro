@@ -10,7 +10,19 @@ const work = (await getCollection('work')).sort(
 
 <BaseLayout title="Work">
   <div class="work">
-    <h1 class="page-title">Work</h1>
+    <section class="work-intro">
+      <h1 class="page-title">Work</h1>
+      <p class="work-intro__supporting">
+        All projects shown are simplified for public viewing, with more details and new projects to come. Interested in learning more about my work?
+        {' '}
+        <a
+          href="mailto:letschat@miles-anderson.com?subject=Case%20study%20request"
+          class="work-intro__link"
+        >
+          Request a case study
+        </a>.
+      </p>
+    </section>
 
     <ul class="work-grid">
       {

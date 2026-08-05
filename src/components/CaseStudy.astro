@@ -33,15 +33,15 @@ const {
 
   <div class="case-study-meta">
     <div class="case-study-meta__column">
+      <h2 class="case-study-meta__heading">Release date</h2>
+      <p class="case-study-meta__value">{releaseDate}</p>
+    </div>
+
+    <div class="case-study-meta__column">
       <h2 class="case-study-meta__heading">Role</h2>
       <ul class="case-study-meta__list">
         {role.map((item) => <li class="case-study-meta__role">{item}</li>)}
       </ul>
-    </div>
-
-    <div class="case-study-meta__column">
-      <h2 class="case-study-meta__heading">Release date</h2>
-      <p class="case-study-meta__value">{releaseDate}</p>
     </div>
 
     {
@@ -75,7 +75,12 @@ const {
 
   {
     gallery && gallery.length > 0 && (
-      <div class="case-study__gallery">
+      <div
+        class:list={[
+          'case-study__gallery',
+          { 'case-study__gallery--multiple': gallery.length > 1 },
+        ]}
+      >
         {gallery.map((item) => (
           <Image class="case-study__gallery-image" src={item} alt="" />
         ))}

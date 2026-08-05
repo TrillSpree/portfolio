@@ -1,10 +1,9 @@
 ---
 title: "Xbox Mobile App"
 headline: "Redefining and refining Xbox's mobile experience"
-description: Led the design and creative direction of Xbox's flagship mobile app. Players can engage with friends, manage their libraries, share game clips, discover then purchase games, and more. Since its original ship date in the Fall of 2020, I collaborated with partners to release continuous improvements, new feature experimentation, north star explorations, and compliance updates.
+description: "Design and creative direction for Xbox's flagship mobile app, the primary surface players use to manage their libraries, connect with friends, share clips, and discover and purchase games. Since shipping in Fall 2020, I've owned the app's design direction through five years of continuous iteration: new feature experimentation, north-star exploration, and the compliance work that keeps a platform this size running."
 role:
   - "IC designer"
-  - "Design team lead"
   - "Creative director"
 releaseDate: October 2020
 date: 2020-10-01T00:00:00.000Z
@@ -21,4 +20,5 @@ gallery:
   - ./xbox-mobile-app/Xbox-Mobile-App_Gallery-4.png
   - ./xbox-mobile-app/Xbox-Mobile-App_Gallery-5.png
   - ./xbox-mobile-app/Xbox-Mobile-App_Gallery-6.png
+  - ./xbox-mobile-app/Xbox-Mobile-App_Gallery-7.png
 ---
