@@ -1,11 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
 
 const featuredProject = (await getCollection('work'))
   .filter((entry) => entry.data.featured)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
+
+const featuredPosts = (await getCollection(
+  'writing',
+  ({ data }) => !data.draft && data.featured,
+)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+if (featuredPosts.length > 1) {
+  console.warn(
+    `[writing] Multiple posts marked featured: ${featuredPosts.map((post) => post.id).join(', ')}. Showing "${featuredPosts[0].id}".`,
+  );
+}
+
+const featuredArticle = featuredPosts[0];
 ---
 
 <BaseLayout title="Portfolio">
@@ -41,28 +55,18 @@ const featuredProject = (await getCollection('work'))
       )
     }
 
-    <section class="home-section">
-      <div class="home-section__header">
-        <h2 class="home-section__label">Featured</h2>
-        <a href="#" class="home-section__link">VIEW ALL</a>
-      </div>
-      <div class="home-grid home-grid--2">
-        <div class="home-placeholder" aria-hidden="true"></div>
-        <div class="home-placeholder" aria-hidden="true"></div>
-      </div>
-    </section>
+    {
+      featuredArticle && (
+        <section class="home-section">
+          <div class="home-section__header">
+            <h2 class="home-section__label">Featured article</h2>
+            <a href="/writing" class="home-section__link">VIEW ALL</a>
+          </div>
+          <ArticleCard entry={featuredArticle} />
+        </section>
+      )
+    }
 
-    <section class="home-section">
-      <div class="home-section__header">
-        <h2 class="home-section__label">Featured</h2>
-        <a href="#" class="home-section__link">VIEW ALL</a>
-      </div>
-      <div class="home-grid home-grid--3">
-        <div class="home-placeholder" aria-hidden="true"></div>
-        <div class="home-placeholder" aria-hidden="true"></div>
-        <div class="home-placeholder" aria-hidden="true"></div>
-      </div>
-    </section>
   </div>
 </BaseLayout>
 
@@ -135,28 +139,6 @@ const featuredProject = (await getCollection('work'))
 
   .home-section__link:hover {
     color: var(--color-accent);
-  }
-
-  .home-placeholder {
-    min-height: 240px;
-    background: var(--color-surface);
-  }
-
-  .home-placeholder--featured {
-    min-height: 480px;
-  }
-
-  .home-grid {
-    display: grid;
-    gap: var(--space-lg);
-  }
-
-  .home-grid--2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .home-grid--3 {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   @media (max-width: 767px) {

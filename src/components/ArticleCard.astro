@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, formatDateAttr } from '../utils/formatDate';
+
+interface Props {
+  entry: CollectionEntry<'writing'>;
+}
+
+const { entry } = Astro.props;
+---
+
+<a href={`/writing/${entry.id}`} class="writing-card">
+  <time class="writing-card__date" datetime={formatDateAttr(entry.data.date)}>
+    {formatDate(entry.data.date)}
+  </time>
+  <div class="writing-card__content">
+    <h2 class="writing-card__title">{entry.data.title}</h2>
+    <p class="writing-card__description">{entry.data.description}</p>
+  </div>
+</a>
