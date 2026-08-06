@@ -28,9 +28,15 @@ const featuredArticle = featuredPosts[0];
       <div class="home-hero__text">
         <p class="home-hero__greeting">Hello.</p>
         <h1 class="home-hero__headline">
-          I'm Miles, a product designer and leader with 12+ years bringing
-          enterprise systems thinking and consumer craft to products used by
-          millions of people.
+          <span class="headline headline--desktop">
+            I'm Miles, a product designer and leader with 12+ years bringing
+            enterprise systems thinking and consumer craft to products used by
+            millions of people.
+          </span>
+          <span class="headline headline--mobile">
+            I'm Miles, a product designer with 12+ years bringing enterprise
+            systems thinking and consumer craft to products at scale.
+          </span>
         </h1>
         <p class="home-hero__supporting">
           Based in the great city of Houston, TX. Most recently led product
@@ -38,9 +44,15 @@ const featuredArticle = featuredPosts[0];
           exploring remote or in-person Principal and Staff-level roles.
         </p>
       </div>
-      <a href="mailto:letschat@miles-anderson.com" class="button-accent">
-        Let's chat
-      </a>
+      <div class="home-hero__actions">
+        <a href="mailto:letschat@miles-anderson.com" class="button-accent">
+          Let's chat
+        </a>
+        <div class="home-hero__opportunities">
+          <p class="home-hero__opportunities-primary">Available for new roles</p>
+          <p class="home-hero__opportunities-secondary">Fall 2026</p>
+        </div>
+      </div>
     </section>
 
     {
@@ -105,8 +117,44 @@ const featuredArticle = featuredPosts[0];
     color: var(--color-text-primary);
   }
 
+  .headline--desktop {
+    display: block;
+  }
+
+  .headline--mobile {
+    display: none;
+  }
+
   .home-hero__supporting {
     font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-secondary);
+  }
+
+  .home-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .home-hero__opportunities {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .home-hero__opportunities-primary {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-primary);
+  }
+
+  .home-hero__opportunities-secondary {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-normal);
     color: var(--color-text-secondary);
@@ -148,6 +196,22 @@ const featuredArticle = featuredPosts[0];
 
     .home-hero__headline {
       font-size: var(--font-size-2xl);
+    }
+
+    .headline--desktop {
+      display: none;
+    }
+
+    .headline--mobile {
+      display: block;
+    }
+
+    .home-hero__supporting {
+      display: none;
+    }
+
+    .home-hero__opportunities {
+      display: flex;
     }
   }
 </style>

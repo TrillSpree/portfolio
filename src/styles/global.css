@@ -144,6 +144,23 @@ h3,
   line-height: var(--line-height-tight);
 }
 
+@media (max-width: 767px) {
+  h1,
+  .h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h2,
+  .h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  h3,
+  .h3 {
+    font-size: var(--font-size-lg);
+  }
+}
+
 h4,
 .h4 {
   font-size: var(--font-size-lg);
@@ -1188,6 +1205,19 @@ h6,
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-normal);
   color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .writing-card {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .writing-card__content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
 }
 
 /* ==========================================================================
