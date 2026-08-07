@@ -2,8 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import { getPublishedWork } from '../utils/getPublishedWork';
 
-const work = (await getCollection('work')).sort(
+const work = (await getPublishedWork()).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 );
 ---
@@ -16,7 +17,7 @@ const work = (await getCollection('work')).sort(
         All projects shown are simplified for public viewing, with more details and new projects to come. Interested in learning more about my work?
         {' '}
         <a
-          href="mailto:letschat@miles-anderson.com?subject=Case%20study%20request"
+          href="mailto:hello@miles-anderson.com?subject=Case%20study%20request"
           class="work-intro__link"
         >
           Request a case study

@@ -583,10 +583,22 @@ h6,
   .site-sidebar.is-open .site-sidebar__follow {
     display: flex;
     position: fixed;
-    right: var(--layout-padding-inline);
-    bottom: var(--space-2xl);
-    left: var(--layout-padding-inline);
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 102;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-2xl) var(--layout-padding-inline);
+    padding-bottom: max(var(--space-2xl), env(safe-area-inset-bottom, 0px));
+  }
+
+  .site-sidebar.is-open .site-sidebar__social {
+    gap: var(--space-md);
+  }
+
+  .site-sidebar.is-open .site-sidebar__social-link {
+    flex-shrink: 0;
   }
 
   .site-content {
@@ -635,7 +647,6 @@ h6,
 
 .site-footer__headline {
   font-family: var(--font-serif);
-  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-light);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
@@ -1256,3 +1267,41 @@ h6,
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   Home hero background (optional)
+   To enable: add class "home-hero--with-background" to the home hero
+   section in src/pages/index.astro, then uncomment the rules below.
+   Adjust --home-hero-background as needed.
+   ========================================================================== */
+
+/*
+:root {
+  --home-hero-background: rgba(0, 0, 0, 0.1);
+}
+
+.site-main:has(.home-hero--with-background) {
+  padding-top: 0;
+}
+
+.home-hero--with-background {
+  box-sizing: border-box;
+  --hero-bleed: max(0px, (100vw - var(--sidebar-width) - 960px) / 2);
+  width: calc(100% + 2 * var(--layout-padding-inline) + 2 * var(--hero-bleed));
+  margin-inline: calc(-1 * var(--layout-padding-inline) - var(--hero-bleed));
+  padding-inline: calc(var(--layout-padding-inline) + var(--hero-bleed));
+  padding-top: var(--space-5xl);
+  padding-bottom: var(--space-2xl);
+  background-color: var(--home-hero-background);
+}
+
+@media (max-width: 767px) {
+  .home-hero--with-background {
+    --hero-bleed: 0px;
+    width: calc(100% + 2 * var(--layout-padding-inline));
+    margin-inline: calc(-1 * var(--layout-padding-inline));
+    padding-inline: var(--layout-padding-inline);
+    padding-top: var(--space-3xl);
+  }
+}
+*/

@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseStudy from '../../components/CaseStudy.astro';
-import { getCollection } from 'astro:content';
+import { getPublishedWork } from '../../utils/getPublishedWork';
 
 export async function getStaticPaths() {
-  const work = await getCollection('work');
+  const work = await getPublishedWork();
 
   return work.map((entry) => ({
     params: { slug: entry.id },

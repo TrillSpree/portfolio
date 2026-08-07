@@ -2,7 +2,6 @@
 import logo from '../assets/logo-lockup.svg';
 import instagramIcon from '../assets/icons/instagram.svg?raw';
 import linkedinIcon from '../assets/icons/linkedin.svg?raw';
-import xIcon from '../assets/icons/x.svg?raw';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -71,18 +70,25 @@ const isActive = (href: string) => {
     <span class="site-sidebar__follow-label">Follow me</span>
     <ul class="site-sidebar__social" role="list">
       <li>
-        <a href="#" class="site-sidebar__social-link" aria-label="Instagram">
+        <a
+          href="https://www.instagram.com/miles_and/"
+          class="site-sidebar__social-link"
+          aria-label="Instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span class="site-sidebar__social-icon" set:html={instagramIcon}></span>
         </a>
       </li>
       <li>
-        <a href="#" class="site-sidebar__social-link" aria-label="LinkedIn">
+        <a
+          href="https://www.linkedin.com/in/miles-anderson-design"
+          class="site-sidebar__social-link"
+          aria-label="LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span class="site-sidebar__social-icon" set:html={linkedinIcon}></span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="site-sidebar__social-link" aria-label="X">
-          <span class="site-sidebar__social-icon" set:html={xIcon}></span>
         </a>
       </li>
     </ul>

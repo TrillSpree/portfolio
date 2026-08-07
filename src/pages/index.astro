@@ -3,8 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
+import { getPublishedWork } from '../utils/getPublishedWork';
 
-const featuredProject = (await getCollection('work'))
+const featuredProject = (await getPublishedWork())
   .filter((entry) => entry.data.featured)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())[0];
 
@@ -34,8 +35,9 @@ const featuredArticle = featuredPosts[0];
             millions of people.
           </span>
           <span class="headline headline--mobile">
-            I'm Miles, a product designer with 12+ years bringing enterprise
-            systems thinking and consumer craft to products at scale.
+            I'm Miles, a product design leader based in Houston, TX with 12+ years
+            bringing enterprise systems thinking and consumer craft to products at
+            scale.
           </span>
         </h1>
         <p class="home-hero__supporting">
@@ -45,7 +47,7 @@ const featuredArticle = featuredPosts[0];
         </p>
       </div>
       <div class="home-hero__actions">
-        <a href="mailto:letschat@miles-anderson.com" class="button-accent">
+        <a href="mailto:hello@miles-anderson.com" class="button-accent">
           Let's chat
         </a>
         <div class="home-hero__opportunities">

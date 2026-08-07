@@ -17,5 +17,10 @@ press:
 image: ./xbox-discord-integration/Xbox-Discord-Integration_Thumbnail.png
 gallery:
   - ./xbox-discord-integration/Xbox-Discord-Integration_Gallery-1.png
+  - ./xbox-discord-integration/Xbox-Discord-Integration_Gallery-2.png
+  - ./xbox-discord-integration/Xbox-Discord-Integration_Gallery-3.png
+  - ./xbox-discord-integration/Xbox-Discord-Integration_Gallery-4.png
+  - ./xbox-discord-integration/Xbox-Discord-Integration_Gallery-5.png
+  - ./xbox-discord-integration/Xbox-Discord-Integration_Gallery-6.png
 featured: false
 ---
