@@ -47,9 +47,23 @@ const mainTransition = fade({ duration: '250ms' });
       <Footer transition:persist />
     </div>
     <Analytics />
+
+    <div class="gallery-lightbox" hidden aria-hidden="true">
+      <button
+        type="button"
+        class="gallery-lightbox__close"
+        aria-label="Close image"
+      >
+        <span class="gallery-lightbox__close-bar" aria-hidden="true"></span>
+        <span class="gallery-lightbox__close-bar" aria-hidden="true"></span>
+        <span class="gallery-lightbox__close-bar" aria-hidden="true"></span>
+      </button>
+      <img class="gallery-lightbox__image" alt="" />
+    </div>
   </body>
 </html>
 
 <script>
   import '../scripts/sidebar.ts';
+  import '../scripts/gallery-lightbox.ts';
 </script>

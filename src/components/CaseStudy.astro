@@ -1,6 +1,7 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import expandIcon from '../assets/icons/expand.svg?raw';
 import MarkdownProse from './MarkdownProse.astro';
 
 interface Props {
@@ -22,6 +23,15 @@ const {
   solution,
   takeaway,
 } = entry.data;
+
+const galleryImages = gallery
+  ? await Promise.all(
+      gallery.map(async (image) => ({
+        image,
+        fullSrc: (await getImage({ src: image })).src,
+      })),
+    )
+  : [];
 ---
 
 <article class="case-study">
@@ -81,8 +91,18 @@ const {
           { 'case-study__gallery--multiple': gallery.length > 1 },
         ]}
       >
-        {gallery.map((item) => (
-          <Image class="case-study__gallery-image" src={item} alt="" />
+        {galleryImages.map(({ image, fullSrc }) => (
+          <div class="case-study__gallery-item" data-full-src={fullSrc}>
+            <Image class="case-study__gallery-image" src={image} alt="" />
+            <button
+              type="button"
+              class="case-study__gallery-expand"
+              data-full-src={fullSrc}
+              aria-label="Expand image"
+            >
+              <span class="case-study__gallery-expand-icon" set:html={expandIcon} />
+            </button>
+          </div>
         ))}
       </div>
     )
