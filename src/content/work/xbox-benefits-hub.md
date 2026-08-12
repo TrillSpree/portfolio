@@ -8,5 +8,11 @@ role:
 releaseDate: "October 2025"
 date: 2025-10-01
 image: ./xbox-benefits-hub/Xbox-Benefits-Hub_Thumbnail.png
+gallery:
+  - ./xbox-benefits-hub/Xbox-Benefits-Hub_Gallery-1.png
+  - ./xbox-benefits-hub/Xbox-Benefits-Hub_Gallery-2.png
+  - ./xbox-benefits-hub/Xbox-Benefits-Hub_Gallery-3.png
+  - ./xbox-benefits-hub/Xbox-Benefits-Hub_Gallery-4.png
+  - ./xbox-benefits-hub/Xbox-Benefits-Hub_Gallery-5.png
 featured: false
 ---

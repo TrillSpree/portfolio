@@ -16,7 +16,11 @@ const cardDescription = getFirstSentence(entry.data.description);
 
 <a
   href={`/work/${entry.id}`}
-  class:list={['work-card', { 'work-card--no-image': !entry.data.image }]}
+  class:list={[
+    'work-card',
+    { 'work-card--no-image': !entry.data.image },
+    `work-card--${entry.id}`,
+  ]}
   style={thumbnailSrc ? `--work-card-bg: url("${thumbnailSrc}")` : undefined}
 >
   {thumbnailSrc && <span class="work-card__bg" aria-hidden="true" />}

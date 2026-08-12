@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "dev:all-work": "SHOW_ALL_WORK=true astro dev",
+    "dev:clean": "rm -rf node_modules/.astro .astro && astro dev",
+    "dev:all-work": "npm run dev:clean",
     "build": "astro build",
     "preview": "astro preview"
   },

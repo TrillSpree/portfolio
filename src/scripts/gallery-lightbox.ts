@@ -1,7 +1,5 @@
-const DOUBLE_TAP_DELAY_MS = 300;
-
-function usesTouchInput() {
-  return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 767px)').matches;
 }
 
 function getLightbox() {
@@ -37,37 +35,15 @@ function closeLightbox() {
 
 function handleGalleryClick(event: Event) {
   if (!(event.target instanceof Element)) return;
+  if (isMobileViewport()) return;
 
   const expandButton = event.target.closest<HTMLButtonElement>(
     '.case-study__gallery-expand',
   );
-  if (expandButton) {
-    const fullSrc = expandButton.dataset.fullSrc;
-    if (fullSrc) openLightbox(fullSrc);
-    return;
-  }
+  if (!expandButton) return;
 
-  if (!usesTouchInput()) return;
-
-  const galleryItem = event.target.closest<HTMLElement>(
-    '.case-study__gallery-item',
-  );
-  if (!galleryItem) return;
-
-  const fullSrc = galleryItem.dataset.fullSrc;
-  if (!fullSrc) return;
-
-  const now = Date.now();
-  const lastTap = Number(galleryItem.dataset.lastTap ?? 0);
-
-  if (now - lastTap < DOUBLE_TAP_DELAY_MS) {
-    event.preventDefault();
-    galleryItem.dataset.lastTap = '0';
-    openLightbox(fullSrc);
-    return;
-  }
-
-  galleryItem.dataset.lastTap = String(now);
+  const fullSrc = expandButton.dataset.fullSrc;
+  if (fullSrc) openLightbox(fullSrc);
 }
 
 function handleLightboxClick(event: Event) {

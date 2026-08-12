@@ -5,7 +5,7 @@ export function isWorkPublished(entry: CollectionEntry<'work'>): boolean {
 }
 
 export function shouldShowAllWork(): boolean {
-  return import.meta.env.DEV && process.env.SHOW_ALL_WORK === 'true';
+  return import.meta.env.DEV;
 }
 
 export async function getPublishedWork(): Promise<CollectionEntry<'work'>[]> {
