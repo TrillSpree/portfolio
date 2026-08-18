@@ -1386,6 +1386,22 @@ h6,
   margin-top: var(--space-2xl);
 }
 
+.writing-post__body h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-top: var(--space-2xl);
+}
+
+.writing-post__body h2:first-child {
+  margin-top: 0;
+}
+
+.writing-post__body h2 + p {
+  margin-top: var(--space-lg);
+}
+
 @media (max-width: 1024px) {
   .work-card {
     flex-direction: column;

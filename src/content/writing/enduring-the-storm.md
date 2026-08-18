@@ -2,7 +2,7 @@
 title: "Enduring the Storm"
 description: "On the noise around AI in design, and the one tension in product development that hasn't changed in a decade — and won't."
 date: 2026-06-09
-featured: true
+featured: false
 ---
 
 The design industry is loud right now. Everyone has a take on AI, and is either panicking or evangelizing. My LinkedIn feed has become a battleground for an insufferable war between AI cynics and AI native gurus. Perhaps it's just how the almighty algorithm reflects my own internal conflicts with AI back at me. Either way, most of what I read sounds the same, which has taught me to tune most of it out…not because real issues and opportunities aren't being highlighted, but because the noise makes it harder to see anything of substance.
