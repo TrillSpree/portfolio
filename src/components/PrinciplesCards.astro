@@ -1,0 +1,25 @@
+---
+interface Principle {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  principles: Principle[];
+}
+
+const { principles } = Astro.props;
+---
+
+{
+  principles.length > 0 && (
+    <ul class="principles-cards" role="list">
+      {principles.map((principle) => (
+        <li class="principles-cards__item">
+          <h3 class="principles-cards__title">{principle.title}</h3>
+          <p class="principles-cards__description">{principle.description}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}

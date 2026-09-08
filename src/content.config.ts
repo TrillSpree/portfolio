@@ -25,7 +25,16 @@ const work = defineCollection({
       problem: z.string().optional(),
       explorations: z.string().optional(),
       solution: z.string().optional(),
+      opportunity: z.string().optional(),
       takeaway: z.string().optional(),
+      principles: z
+        .array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+          }),
+        )
+        .optional(),
       impact: z.array(z.string()).optional(),
       featured: z.boolean().optional().default(false),
     }),

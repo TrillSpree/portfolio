@@ -1,4 +1,6 @@
 ---
+import { getImage, type ImageMetadata } from 'astro:assets';
+import expandIcon from '../assets/icons/expand.svg?raw';
 import { renderMarkdownToHtml } from '../utils/renderMarkdown';
 
 interface Props {
@@ -6,7 +8,41 @@ interface Props {
 }
 
 const { content } = Astro.props;
-const html = renderMarkdownToHtml(content);
+
+const contentImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../content/work/**/*.{png,jpg,jpeg,webp,gif,svg}',
+  { eager: true },
+);
+
+const contentImageUrls = import.meta.glob<string>(
+  '../content/work/**/*.{png,jpg,jpeg,webp,gif,svg}',
+  { eager: true, query: '?url', import: 'default' },
+);
+
+const imageSrcByPath = new Map<
+  string,
+  { displaySrc: string; fullSrc: string }
+>();
+
+for (const [path, module] of Object.entries(contentImages)) {
+  const normalizedPath = path.replace('../content/work/', './');
+  const display = await getImage({ src: module.default, width: 1200 });
+  const fullSrc = contentImageUrls[path];
+
+  imageSrcByPath.set(normalizedPath, {
+    displaySrc: display.src,
+    fullSrc: fullSrc ?? display.src,
+  });
+}
+
+const html = renderMarkdownToHtml(
+  content,
+  (src) => {
+    const normalizedSrc = src.startsWith('./') ? src : `./${src}`;
+    return imageSrcByPath.get(normalizedSrc);
+  },
+  expandIcon,
+);
 ---
 
 <div class="long-form" set:html={html} />

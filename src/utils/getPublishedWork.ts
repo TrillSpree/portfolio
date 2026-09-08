@@ -1,7 +1,17 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export function isWorkPublished(entry: CollectionEntry<'work'>): boolean {
-  return Boolean(entry.data.gallery?.length);
+  const { gallery, problem, explorations, solution, opportunity, takeaway } =
+    entry.data;
+
+  return Boolean(
+    gallery?.length ||
+      problem ||
+      explorations ||
+      solution ||
+      opportunity ||
+      takeaway,
+  );
 }
 
 export function shouldShowAllWork(): boolean {

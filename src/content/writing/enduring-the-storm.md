@@ -1,6 +1,6 @@
 ---
 title: "Enduring the Storm"
-description: "On the noise around AI in design, and the one tension in product development that hasn't changed in a decade — and won't."
+description: "On the noise around AI in design, and the one tension in product development that hasn't changed in a decade and won't."
 date: 2026-06-09
 featured: false
 ---

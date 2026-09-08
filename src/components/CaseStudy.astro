@@ -1,8 +1,9 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import expandIcon from '../assets/icons/expand.svg?raw';
 import MarkdownProse from './MarkdownProse.astro';
+import PrinciplesCards from './PrinciplesCards.astro';
 
 interface Props {
   entry: CollectionEntry<'work'>;
@@ -16,22 +17,33 @@ const {
   role,
   releaseDate,
   press,
+  image,
   gallery,
   impact,
   problem,
   explorations,
+  principles,
   solution,
+  opportunity,
   takeaway,
 } = entry.data;
 
 const galleryImages = gallery
-  ? await Promise.all(
-      gallery.map(async (image) => ({
-        image,
-        fullSrc: (await getImage({ src: image })).src,
-      })),
-    )
+  ? gallery.map((image) => ({
+      image,
+      fullSrc: image.src,
+    }))
   : [];
+
+const heroFullSrc = image?.src;
+
+const explorationsBlocks = explorations
+  ? explorations.trim().split(/\n\n+/).filter(Boolean)
+  : [];
+const explorationsLeadCount =
+  principles && principles.length > 0 ? 2 : explorationsBlocks.length;
+const explorationsLead = explorationsBlocks.slice(0, explorationsLeadCount).join('\n\n');
+const explorationsRest = explorationsBlocks.slice(explorationsLeadCount).join('\n\n');
 ---
 
 <article class="case-study">
@@ -40,6 +52,24 @@ const galleryImages = gallery
     <h1 class="case-study__title">{headline}</h1>
     <p class="case-study__description">{description}</p>
   </header>
+
+  {
+    image && (
+      <div class="case-study__hero case-study__gallery-item" data-full-src={heroFullSrc}>
+        <Image class="case-study__hero-image" src={image} alt="" />
+        {heroFullSrc && (
+          <button
+            type="button"
+            class="case-study__gallery-expand"
+            data-full-src={heroFullSrc}
+            aria-label="Expand image"
+          >
+            <span class="case-study__gallery-expand-icon" set:html={expandIcon} />
+          </button>
+        )}
+      </div>
+    )
+  }
 
   <div class="case-study-meta">
     <div class="case-study-meta__column">
@@ -92,7 +122,7 @@ const galleryImages = gallery
         ]}
       >
         {galleryImages.map(({ image, fullSrc }) => (
-          <div class="case-study__gallery-item">
+          <div class="case-study__gallery-item" data-full-src={fullSrc}>
             <Image class="case-study__gallery-image" src={image} alt="" />
             <button
               type="button"
@@ -109,19 +139,6 @@ const galleryImages = gallery
   }
 
   {
-    impact && impact.length > 0 && (
-      <aside class="case-study-impact" aria-label="Impact">
-        <h2 class="case-study-impact__heading">Impact</h2>
-        <ul class="case-study-impact__list">
-          {impact.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
-      </aside>
-    )
-  }
-
-  {
     problem && (
       <section class="case-study-section">
         <h2 class="case-study-section__heading">Problem</h2>
@@ -131,10 +148,14 @@ const galleryImages = gallery
   }
 
   {
-    explorations && (
+    (explorations || (principles && principles.length > 0)) && (
       <section class="case-study-section">
         <h2 class="case-study-section__heading">Explorations</h2>
-        <MarkdownProse content={explorations} />
+        {explorationsLead && <MarkdownProse content={explorationsLead} />}
+        {principles && principles.length > 0 && (
+          <PrinciplesCards principles={principles} />
+        )}
+        {explorationsRest && <MarkdownProse content={explorationsRest} />}
       </section>
     )
   }
@@ -145,6 +166,28 @@ const galleryImages = gallery
         <h2 class="case-study-section__heading">Solution</h2>
         <MarkdownProse content={solution} />
       </section>
+    )
+  }
+
+  {
+    opportunity && (
+      <section class="case-study-section">
+        <h2 class="case-study-section__heading">Opportunity</h2>
+        <MarkdownProse content={opportunity} />
+      </section>
+    )
+  }
+
+  {
+    impact && impact.length > 0 && (
+      <aside class="case-study-impact" aria-label="Impact">
+        <h2 class="case-study-impact__heading">Impact</h2>
+        <ul class="case-study-impact__list">
+          {impact.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </aside>
     )
   }
 

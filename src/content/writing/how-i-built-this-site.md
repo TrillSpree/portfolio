@@ -1,8 +1,8 @@
 ---
 title: "How I Built This Site"
-description: "The tools, the process, and the honest story of turning a two-week sprint into two months — and what actually did the design work."
+description: "The tools, the process, and the honest story of turning a two-week sprint into two months, plus what actually did the design work."
 date: 2026-08-18
-featured: true
+featured: false
 ---
 
 I haven't had a live portfolio site in over a decade.
