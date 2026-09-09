@@ -1,7 +1,7 @@
 ---
 title: "Nobody Asked for Sparkles"
 description: "On the gap between AI that actually makes products better and AI features that exist just to be seen. Some hard-won pattern recognition from inside two very different companies."
-date: 2026-09-18
+date: 2026-09-08
 featured: true
 ---
 
