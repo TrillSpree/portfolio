@@ -1216,6 +1216,92 @@ h6,
   color: var(--color-text-primary);
 }
 
+.full-bleed-gallery {
+  --full-bleed: max(
+    0px,
+    (100vw - var(--sidebar-width) - var(--layout-max-width)) / 2
+  );
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  width: calc(100% + 2 * var(--layout-padding-inline) + 2 * var(--full-bleed));
+  margin-inline: calc(-1 * var(--layout-padding-inline) - var(--full-bleed));
+  padding: var(--space-3xl) var(--space-2xl);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background-color: transparent;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 1px,
+    transparent 1px
+  );
+  background-size: 12px 12px;
+}
+
+/* 2 images → side by side */
+@media (min-width: 768px) {
+  .full-bleed-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 3 images → three columns */
+  .full-bleed-gallery:has(> figure:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* 4 images → four columns, one row */
+  .full-bleed-gallery:has(> figure:nth-child(4):last-child) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.full-bleed-gallery figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  min-width: 0;
+}
+
+.full-bleed-gallery__media {
+  position: relative;
+}
+
+.full-bleed-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-background);
+}
+
+.full-bleed-gallery .image-placeholder {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  border-radius: 16px;
+  background-color: var(--color-background);
+}
+
+.full-bleed-gallery figcaption {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .full-bleed-gallery {
+    --full-bleed: 0px;
+    width: calc(100% + 2 * var(--layout-padding-inline));
+    margin-inline: calc(-1 * var(--layout-padding-inline));
+    padding: var(--space-2xl) var(--layout-padding-inline);
+  }
+}
+
 .case-study-section {
   display: flex;
   flex-direction: column;

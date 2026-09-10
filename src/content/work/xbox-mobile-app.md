@@ -72,9 +72,24 @@ solution: |
 
   That turned out to be more than a structural fix. The subscription catalog had previously been somewhat downplayed inside the flagship app, since a dedicated app already existed for it elsewhere. Giving it a real, dedicated space inside the primary app let the team actively promote it for the first time, turning what could have been a defensive merge into an opportunity to drive new subscription discovery among users who'd never had a reason to find it before.
 
-  ![The dedicated subscription space in the final experience](./xbox-mobile-app/Xbox-Mobile-App_Solution-Detail.png)
-
-  ![Additional detail on the final experience](./xbox-mobile-app/Xbox-Mobile-App_Solution-Detail-2.png)
+  <div class="full-bleed-gallery">
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_Solution-Detail-1a.png" alt="Game Pass page" />
+      <figcaption>Game Pass page</figcaption>
+    </figure>
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_Solution-Detail-1b.png" alt="Scrolled view" />
+      <figcaption>Scrolled view</figcaption>
+    </figure>
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_Solution-Detail-1c.png" alt="Perks gallery" />
+      <figcaption>Perks gallery</figcaption>
+    </figure>
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_Solution-Detail-1d.png" alt="Subscription details" />
+      <figcaption>Subscription details</figcaption>
+    </figure>
+  </div>
 opportunity: |
   Consolidating the two apps did more than simplify the product. It also cleared the way for something the fragmented version could never have delivered quickly: commerce.
 

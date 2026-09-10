@@ -14,6 +14,33 @@ type ResolvedImage = {
 
 type ImageResolver = (src: string) => ResolvedImage | undefined;
 
+const FULL_BLEED_GALLERY_OPEN_RE =
+  /<div\s+class=["']full-bleed-gallery["'][^>]*>/gi;
+
+function findMatchingDivEnd(html: string, openEndIndex: number): number {
+  let depth = 1;
+  let i = openEndIndex;
+
+  while (i < html.length && depth > 0) {
+    const nextOpen = html.indexOf('<div', i);
+    const nextClose = html.indexOf('</div>', i);
+
+    if (nextClose === -1) return -1;
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth += 1;
+      i = nextOpen + 4;
+      continue;
+    }
+
+    depth -= 1;
+    i = nextClose + 6;
+    if (depth === 0) return i;
+  }
+
+  return -1;
+}
+
 function formatInline(text: string): string {
   return escapeHtml(text).replaceAll(
     /\*\*([^*]+)\*\*/g,
@@ -97,16 +124,88 @@ function isLabel(block: string): boolean {
   return /^\*\*[^*]+\*\*$/.test(block.trim());
 }
 
+function resolveHtmlImageSrcs(
+  html: string,
+  resolveImage?: ImageResolver,
+  expandIcon?: string,
+): string {
+  return html.replace(/<img\b([^>]*)\/?>/gi, (_match, attrs: string) => {
+    const srcMatch = attrs.match(/\ssrc=["']([^"']+)["']/i) ?? attrs.match(/^src=["']([^"']+)["']/i);
+    if (!srcMatch) return _match;
+
+    const src = srcMatch[1];
+    const resolved = resolveImage?.(src);
+    if (!resolved) {
+      const fileName = src.split('/').pop() ?? src;
+      return `<div class="image-placeholder" role="img" aria-label="${escapeHtml(fileName)}"><span class="image-placeholder__label">${escapeHtml(fileName)}</span></div>`;
+    }
+
+    const cleanedAttrs = attrs
+      .replace(/\ssrc=["'][^"']+["']/i, '')
+      .replace(/^src=["'][^"']+["']/i, '')
+      .replace(/\s*\//, '')
+      .trim();
+
+    const expand =
+      expandIcon && resolved.fullSrc
+        ? renderExpandButton(resolved.fullSrc, expandIcon)
+        : '';
+
+    return `<div class="full-bleed-gallery__media case-study__gallery-item" data-full-src="${escapeHtml(resolved.fullSrc)}"><img src="${escapeHtml(resolved.displaySrc)}" ${cleanedAttrs} loading="lazy" />${expand}</div>`;
+  });
+}
+
+function extractFullBleedGalleries(content: string): {
+  content: string;
+  galleries: string[];
+} {
+  const galleries: string[] = [];
+  let nextContent = '';
+  let cursor = 0;
+
+  FULL_BLEED_GALLERY_OPEN_RE.lastIndex = 0;
+  let openMatch = FULL_BLEED_GALLERY_OPEN_RE.exec(content);
+
+  while (openMatch) {
+    const openStart = openMatch.index;
+    const openEnd = openStart + openMatch[0].length;
+    const closeEnd = findMatchingDivEnd(content, openEnd);
+
+    if (closeEnd === -1) break;
+
+    nextContent += content.slice(cursor, openStart);
+    const index = galleries.length;
+    galleries.push(content.slice(openStart, closeEnd));
+    nextContent += `\n\n@@FULL_BLEED_GALLERY_${index}@@\n\n`;
+    cursor = closeEnd;
+
+    FULL_BLEED_GALLERY_OPEN_RE.lastIndex = cursor;
+    openMatch = FULL_BLEED_GALLERY_OPEN_RE.exec(content);
+  }
+
+  nextContent += content.slice(cursor);
+  return { content: nextContent, galleries };
+}
+
 export function renderMarkdownToHtml(
   content: string,
   resolveImage?: ImageResolver,
   expandIcon?: string,
 ): string {
-  return content
+  const { content: withPlaceholders, galleries } =
+    extractFullBleedGalleries(content);
+
+  return withPlaceholders
     .trim()
     .split(/\n\n+/)
     .filter(Boolean)
     .map((block) => {
+      const galleryMatch = block.trim().match(/^@@FULL_BLEED_GALLERY_(\d+)@@$/);
+      if (galleryMatch) {
+        const galleryHtml = galleries[Number(galleryMatch[1])] ?? '';
+        return resolveHtmlImageSrcs(galleryHtml, resolveImage, expandIcon);
+      }
+
       if (isBlockquote(block)) return renderBlockquote(block);
       if (isImage(block)) return renderImage(block, resolveImage, expandIcon);
       if (isLabel(block)) return renderLabel(block);
