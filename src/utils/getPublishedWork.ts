@@ -1,11 +1,12 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export function isWorkPublished(entry: CollectionEntry<'work'>): boolean {
-  const { gallery, problem, explorations, solution, opportunity, takeaway } =
+  const { gallery, overview, problem, explorations, solution, opportunity, takeaway } =
     entry.data;
 
   return Boolean(
     gallery?.length ||
+      overview ||
       problem ||
       explorations ||
       solution ||

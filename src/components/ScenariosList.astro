@@ -1,0 +1,30 @@
+---
+interface Scenario {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  scenarios: Scenario[];
+}
+
+const { scenarios } = Astro.props;
+---
+
+{
+  scenarios.length > 0 && (
+    <ol class="scenarios-list">
+      {scenarios.map((scenario, index) => (
+        <li class="scenarios-list__item">
+          <span class="scenarios-list__index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <div class="scenarios-list__body">
+            <h3 class="scenarios-list__title">{scenario.title}</h3>
+            <p class="scenarios-list__description">{scenario.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
+}

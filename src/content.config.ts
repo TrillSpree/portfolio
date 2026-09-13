@@ -22,12 +22,21 @@ const work = defineCollection({
       image: image().optional(),
       gallery: z.array(image()).optional(),
       date: z.coerce.date(),
+      overview: z.string().optional(),
       problem: z.string().optional(),
       explorations: z.string().optional(),
       solution: z.string().optional(),
       opportunity: z.string().optional(),
       takeaway: z.string().optional(),
       principles: z
+        .array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+          }),
+        )
+        .optional(),
+      scenarios: z
         .array(
           z.object({
             title: z.string(),

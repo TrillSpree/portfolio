@@ -27,12 +27,31 @@ principles:
     description: "Game Pass is a core part of our business strategy and provides value to our customers. Find ways to prioritize for subscribers and non-subscribers alike."
   - title: "Prioritize coherence"
     description: "We always strive to drive coherence in our work. Align with other great experiences in our ecosystem where it makes sense and when plans are ready."
+scenarios:
+  - title: "Game discovery"
+    description: "Helping people find something to play, regardless of which app they'd previously used."
+  - title: "Subscription visibility"
+    description: "Making sure the value of Game Pass stayed easy to find, rather than getting lost in a larger, more general experience."
+overview: |
+  I was the design lead for Xbox's flagship mobile app, responsible for its original release and the ongoing maintenance and improvement that followed. I shipped the app in November 2020, alongside the launch of the Xbox Series S and Series X consoles. The product centered on social engagement and console management, helping new console owners get set up and stay connected to their gaming community wherever they had a phone on hand. Because the team owned the full stack, the app also functioned as an experimentation platform, a place to test functionality ahead of a broader rollout to other devices.
+
+  Around the same time, a separate team was building a dedicated Game Pass app. From the start, leadership expected the two experiences would eventually need to consolidate, or that the Game Pass app would need to take a different shape. A dedicated surface made sense against KPIs built around Game Pass subscriber growth, but it made less sense from an overall customer experience standpoint. That tension went unresolved for years, until tighter budgets made maintaining both apps unsustainable and turned the question from hypothetical to immediate.
+
 problem: |
   Maintaining two separate mobile apps meant two codebases, two release schedules, and two sets of compliance and testing overhead, across every device and app store the team shipped to. The cost and coordination burden compounded every time a new feature needed to ship in both places at once. Complicating things further, each app had its own dedicated team, which meant every decision about shared functionality required coordinating across two organizations with different priorities, not just two codebases. At the same time, the broader mobile strategy was moving away from maintaining unique surfaces per use case, toward a single, unified platform, closer to how consumer apps like Spotify handle multiple use cases inside one responsive experience rather than standing up separate apps.
 
   Consolidating made sense on paper. The hard part was doing it without quietly abandoning either audience.
 
-  ![Side-by-side comparison of the two original apps](./xbox-mobile-app/Xbox-Mobile-App_App-Comparison.png)
+  <div class="inline-gallery">
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_App-Comparison-A.png" alt="Xbox Mobile App: Designed to be a console companion app, and the primary way to engage with your gaming community on the go." />
+      <figcaption>Xbox Mobile App: Designed to be a console companion app, and the primary way to engage with your gaming community on the go.</figcaption>
+    </figure>
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_App-Comparison-B.png" alt="Game Pass App: Designed to provide a constant view of the Game Pass catalog and subscription benefits." />
+      <figcaption>Game Pass App: Designed to provide a constant view of the Game Pass catalog and subscription benefits.</figcaption>
+    </figure>
+  </div>
 
   The two apps had real, distinct identities. The flagship app was the broader hub, community, discovery, console management, built for the wider Xbox base. The second app existed specifically to give the subscription catalog constant visibility: browsing, discovery, and management of what was included, built for a smaller but highly engaged subscriber audience.
 
@@ -50,19 +69,20 @@ explorations: |
 
   Two core scenarios anchored the actual design work.
 
-  **Game discovery**
-
-  Helping people find something to play, regardless of which app they'd previously used.
-
-  **Subscription visibility**
-
-  Making sure the value of Game Pass stayed easy to find, rather than getting lost in a larger, more general experience.
-
-  ![Early wireframes exploring different structural approaches](./xbox-mobile-app/Xbox-Mobile-App_Wireframe-Options.png)
-
   The team's initial instinct was to keep this as cheap as possible. Add some Game Pass content to the home screen and call it done. That would have satisfied the requirements, but it felt incomplete.
 
   The challenge became how to give Game Pass dedicated space to shine in the experience, without completely rearchitecting the app.
+
+  <div class="inline-gallery">
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_Wireframe-Options.png" alt="Initial options the team explored" />
+      <figcaption>Initial options the team explored</figcaption>
+    </figure>
+    <figure>
+      <img src="./xbox-mobile-app/Xbox-Mobile-App_Wireframe-Options_Final.png" alt="My proposal for a solution" />
+      <figcaption>My proposal for a solution</figcaption>
+    </figure>
+  </div>
 
   From there, I looked at patterns already working elsewhere in the Xbox ecosystem, along with common mobile conventions around how apps handle account and profile-level navigation, to see if a better answer already existed.
 solution: |

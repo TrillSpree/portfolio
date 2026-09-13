@@ -14,8 +14,8 @@ type ResolvedImage = {
 
 type ImageResolver = (src: string) => ResolvedImage | undefined;
 
-const FULL_BLEED_GALLERY_OPEN_RE =
-  /<div\s+class=["']full-bleed-gallery["'][^>]*>/gi;
+const GALLERY_OPEN_RE =
+  /<div\s+class=["'](?:full-bleed-gallery|inline-gallery)["'][^>]*>/gi;
 
 function findMatchingDivEnd(html: string, openEndIndex: number): number {
   let depth = 1;
@@ -151,11 +151,11 @@ function resolveHtmlImageSrcs(
         ? renderExpandButton(resolved.fullSrc, expandIcon)
         : '';
 
-    return `<div class="full-bleed-gallery__media case-study__gallery-item" data-full-src="${escapeHtml(resolved.fullSrc)}"><img src="${escapeHtml(resolved.displaySrc)}" ${cleanedAttrs} loading="lazy" />${expand}</div>`;
+    return `<div class="gallery__media case-study__gallery-item" data-full-src="${escapeHtml(resolved.fullSrc)}"><img src="${escapeHtml(resolved.displaySrc)}" ${cleanedAttrs} loading="lazy" />${expand}</div>`;
   });
 }
 
-function extractFullBleedGalleries(content: string): {
+function extractGalleries(content: string): {
   content: string;
   galleries: string[];
 } {
@@ -163,8 +163,8 @@ function extractFullBleedGalleries(content: string): {
   let nextContent = '';
   let cursor = 0;
 
-  FULL_BLEED_GALLERY_OPEN_RE.lastIndex = 0;
-  let openMatch = FULL_BLEED_GALLERY_OPEN_RE.exec(content);
+  GALLERY_OPEN_RE.lastIndex = 0;
+  let openMatch = GALLERY_OPEN_RE.exec(content);
 
   while (openMatch) {
     const openStart = openMatch.index;
@@ -176,11 +176,11 @@ function extractFullBleedGalleries(content: string): {
     nextContent += content.slice(cursor, openStart);
     const index = galleries.length;
     galleries.push(content.slice(openStart, closeEnd));
-    nextContent += `\n\n@@FULL_BLEED_GALLERY_${index}@@\n\n`;
+    nextContent += `\n\n@@GALLERY_${index}@@\n\n`;
     cursor = closeEnd;
 
-    FULL_BLEED_GALLERY_OPEN_RE.lastIndex = cursor;
-    openMatch = FULL_BLEED_GALLERY_OPEN_RE.exec(content);
+    GALLERY_OPEN_RE.lastIndex = cursor;
+    openMatch = GALLERY_OPEN_RE.exec(content);
   }
 
   nextContent += content.slice(cursor);
@@ -192,15 +192,14 @@ export function renderMarkdownToHtml(
   resolveImage?: ImageResolver,
   expandIcon?: string,
 ): string {
-  const { content: withPlaceholders, galleries } =
-    extractFullBleedGalleries(content);
+  const { content: withPlaceholders, galleries } = extractGalleries(content);
 
   return withPlaceholders
     .trim()
     .split(/\n\n+/)
     .filter(Boolean)
     .map((block) => {
-      const galleryMatch = block.trim().match(/^@@FULL_BLEED_GALLERY_(\d+)@@$/);
+      const galleryMatch = block.trim().match(/^@@GALLERY_(\d+)@@$/);
       if (galleryMatch) {
         const galleryHtml = galleries[Number(galleryMatch[1])] ?? '';
         return resolveHtmlImageSrcs(galleryHtml, resolveImage, expandIcon);

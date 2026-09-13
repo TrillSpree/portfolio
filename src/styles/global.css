@@ -614,6 +614,7 @@ h6,
   flex: 1;
   flex-direction: column;
   padding-block: var(--space-5xl);
+  container-type: inline-size;
 }
 
 @media (max-width: 767px) {
@@ -708,7 +709,7 @@ h6,
   border-radius: 8px;
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
-  background: var(--color-surface);
+  background: #2d2d2d;
   transition:
     background-color 200ms ease-out,
     color 200ms ease-out,
@@ -1229,8 +1230,6 @@ h6,
   width: calc(100% + 2 * var(--layout-padding-inline) + 2 * var(--full-bleed));
   margin-inline: calc(-1 * var(--layout-padding-inline) - var(--full-bleed));
   padding: var(--space-3xl) var(--space-2xl);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
   background-color: transparent;
   background-image: radial-gradient(
     circle,
@@ -1265,7 +1264,8 @@ h6,
   min-width: 0;
 }
 
-.full-bleed-gallery__media {
+.full-bleed-gallery__media,
+.gallery__media {
   position: relative;
 }
 
@@ -1302,6 +1302,64 @@ h6,
   }
 }
 
+.inline-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  width: 100%;
+  margin-block: var(--space-lg);
+}
+
+.long-form > .inline-gallery + * {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .inline-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inline-gallery:has(> figure:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .inline-gallery:has(> figure:nth-child(4):last-child) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.inline-gallery figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  min-width: 0;
+}
+
+.inline-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-background);
+}
+
+.inline-gallery .image-placeholder {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  border-radius: 8px;
+  background-color: var(--color-background);
+}
+
+.inline-gallery figcaption {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
 .case-study-section {
   display: flex;
   flex-direction: column;
@@ -1331,6 +1389,7 @@ h6,
   flex-direction: column;
   gap: var(--space-md);
   padding: var(--space-xl);
+  border: 1px solid var(--color-border);
   background: var(--color-surface);
   border-radius: 8px;
 }
@@ -1353,6 +1412,64 @@ h6,
   .principles-cards {
     grid-template-columns: 1fr;
   }
+}
+
+.scenarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.scenarios-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.scenarios-list__index {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.scenarios-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+.scenarios-list__title {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+.scenarios-list__description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
 }
 
 .case-study-grid {
@@ -1616,39 +1733,46 @@ h6,
 }
 
 /* ==========================================================================
-   Home hero background (optional)
-   To enable: add class "home-hero--with-background" to the home hero
-   section in src/pages/index.astro, then uncomment the rules below.
-   Adjust --home-hero-background as needed.
+   Home hero background
    ========================================================================== */
-
-/*
-:root {
-  --home-hero-background: rgba(0, 0, 0, 0.1);
-}
 
 .site-main:has(.home-hero--with-background) {
   padding-top: 0;
 }
 
-.home-hero--with-background {
+.home-hero.home-hero--with-background {
+  position: relative;
+  isolation: isolate;
   box-sizing: border-box;
-  --hero-bleed: max(0px, (100vw - var(--sidebar-width) - 960px) / 2);
-  width: calc(100% + 2 * var(--layout-padding-inline) + 2 * var(--hero-bleed));
-  margin-inline: calc(-1 * var(--layout-padding-inline) - var(--hero-bleed));
-  padding-inline: calc(var(--layout-padding-inline) + var(--hero-bleed));
+  width: 100cqi;
+  max-width: none;
+  margin-inline: calc(50% - 50cqi);
+  padding-inline: max(
+    var(--layout-padding-inline),
+    calc((100cqi - var(--layout-max-width)) / 2 + var(--layout-padding-inline))
+  );
   padding-top: var(--space-5xl);
   padding-bottom: var(--space-2xl);
-  background-color: var(--home-hero-background);
+}
+
+.home-hero.home-hero--with-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 1px,
+    transparent 1px
+  );
+  background-size: 12px 12px;
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
 }
 
 @media (max-width: 767px) {
-  .home-hero--with-background {
-    --hero-bleed: 0px;
-    width: calc(100% + 2 * var(--layout-padding-inline));
-    margin-inline: calc(-1 * var(--layout-padding-inline));
-    padding-inline: var(--layout-padding-inline);
+  .home-hero.home-hero--with-background {
     padding-top: var(--space-3xl);
   }
 }
-*/

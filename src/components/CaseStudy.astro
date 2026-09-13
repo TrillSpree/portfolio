@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import expandIcon from '../assets/icons/expand.svg?raw';
 import MarkdownProse from './MarkdownProse.astro';
 import PrinciplesCards from './PrinciplesCards.astro';
+import ScenariosList from './ScenariosList.astro';
 
 interface Props {
   entry: CollectionEntry<'work'>;
@@ -20,9 +21,11 @@ const {
   image,
   gallery,
   impact,
+  overview,
   problem,
   explorations,
   principles,
+  scenarios,
   solution,
   opportunity,
   takeaway,
@@ -40,10 +43,44 @@ const heroFullSrc = image?.src;
 const explorationsBlocks = explorations
   ? explorations.trim().split(/\n\n+/).filter(Boolean)
   : [];
-const explorationsLeadCount =
-  principles && principles.length > 0 ? 2 : explorationsBlocks.length;
+
+function isImageBlock(block: string): boolean {
+  return /^!\[.*\]\(.*\)$/.test(block.trim());
+}
+
+function nextTextBlockIndex(start: number): number {
+  for (let i = start; i < explorationsBlocks.length; i++) {
+    if (!isImageBlock(explorationsBlocks[i])) return i;
+  }
+  return -1;
+}
+
+let explorationsLeadCount = explorationsBlocks.length;
+if (principles && principles.length > 0) {
+  let paragraphCount = 0;
+  explorationsLeadCount = explorationsBlocks.length;
+  for (let i = 0; i < explorationsBlocks.length; i++) {
+    if (!isImageBlock(explorationsBlocks[i])) {
+      paragraphCount += 1;
+      if (paragraphCount === 2) {
+        explorationsLeadCount = i + 1;
+        break;
+      }
+    }
+  }
+}
+
+let explorationsMidCount = explorationsLeadCount;
+if (scenarios && scenarios.length > 0) {
+  const midIndex = nextTextBlockIndex(explorationsLeadCount);
+  explorationsMidCount = midIndex === -1 ? explorationsLeadCount : midIndex + 1;
+}
+
 const explorationsLead = explorationsBlocks.slice(0, explorationsLeadCount).join('\n\n');
-const explorationsRest = explorationsBlocks.slice(explorationsLeadCount).join('\n\n');
+const explorationsMid = explorationsBlocks
+  .slice(explorationsLeadCount, explorationsMidCount)
+  .join('\n\n');
+const explorationsRest = explorationsBlocks.slice(explorationsMidCount).join('\n\n');
 ---
 
 <article class="case-study">
@@ -139,6 +176,15 @@ const explorationsRest = explorationsBlocks.slice(explorationsLeadCount).join('\
   }
 
   {
+    overview && (
+      <section class="case-study-section">
+        <h2 class="case-study-section__heading">Overview</h2>
+        <MarkdownProse content={overview} />
+      </section>
+    )
+  }
+
+  {
     problem && (
       <section class="case-study-section">
         <h2 class="case-study-section__heading">Problem</h2>
@@ -148,12 +194,18 @@ const explorationsRest = explorationsBlocks.slice(explorationsLeadCount).join('\
   }
 
   {
-    (explorations || (principles && principles.length > 0)) && (
+    (explorations ||
+      (principles && principles.length > 0) ||
+      (scenarios && scenarios.length > 0)) && (
       <section class="case-study-section">
         <h2 class="case-study-section__heading">Explorations</h2>
         {explorationsLead && <MarkdownProse content={explorationsLead} />}
         {principles && principles.length > 0 && (
           <PrinciplesCards principles={principles} />
+        )}
+        {explorationsMid && <MarkdownProse content={explorationsMid} />}
+        {scenarios && scenarios.length > 0 && (
+          <ScenariosList scenarios={scenarios} />
         )}
         {explorationsRest && <MarkdownProse content={explorationsRest} />}
       </section>
