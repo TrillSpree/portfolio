@@ -48,9 +48,19 @@ function isImageBlock(block: string): boolean {
   return /^!\[.*\]\(.*\)$/.test(block.trim());
 }
 
+function isHtmlEmbedBlock(block: string): boolean {
+  return /^<div\s+class=["'](?:full-bleed-gallery|inline-gallery|problem-list)["']/.test(
+    block.trim(),
+  );
+}
+
+function isNonTextBlock(block: string): boolean {
+  return isImageBlock(block) || isHtmlEmbedBlock(block);
+}
+
 function nextTextBlockIndex(start: number): number {
   for (let i = start; i < explorationsBlocks.length; i++) {
-    if (!isImageBlock(explorationsBlocks[i])) return i;
+    if (!isNonTextBlock(explorationsBlocks[i])) return i;
   }
   return -1;
 }
@@ -60,7 +70,7 @@ if (principles && principles.length > 0) {
   let paragraphCount = 0;
   explorationsLeadCount = explorationsBlocks.length;
   for (let i = 0; i < explorationsBlocks.length; i++) {
-    if (!isImageBlock(explorationsBlocks[i])) {
+    if (!isNonTextBlock(explorationsBlocks[i])) {
       paragraphCount += 1;
       if (paragraphCount === 2) {
         explorationsLeadCount = i + 1;
@@ -75,6 +85,8 @@ if (scenarios && scenarios.length > 0) {
   const midIndex = nextTextBlockIndex(explorationsLeadCount);
   explorationsMidCount = midIndex === -1 ? explorationsLeadCount : midIndex + 1;
 }
+
+const showImpactBeforeOpportunity = entry.id === 'xbox-benefits-hub';
 
 const explorationsLead = explorationsBlocks.slice(0, explorationsLeadCount).join('\n\n');
 const explorationsMid = explorationsBlocks
@@ -222,6 +234,19 @@ const explorationsRest = explorationsBlocks.slice(explorationsMidCount).join('\n
   }
 
   {
+    showImpactBeforeOpportunity && impact && impact.length > 0 && (
+      <aside class="case-study-impact" aria-label="Impact">
+        <h2 class="case-study-impact__heading">Impact</h2>
+        <ul class="case-study-impact__list">
+          {impact.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </aside>
+    )
+  }
+
+  {
     opportunity && (
       <section class="case-study-section">
         <h2 class="case-study-section__heading">Opportunity</h2>
@@ -231,7 +256,7 @@ const explorationsRest = explorationsBlocks.slice(explorationsMidCount).join('\n
   }
 
   {
-    impact && impact.length > 0 && (
+    !showImpactBeforeOpportunity && impact && impact.length > 0 && (
       <aside class="case-study-impact" aria-label="Impact">
         <h2 class="case-study-impact__heading">Impact</h2>
         <ul class="case-study-impact__list">

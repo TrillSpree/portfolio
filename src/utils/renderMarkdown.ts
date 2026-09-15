@@ -14,8 +14,8 @@ type ResolvedImage = {
 
 type ImageResolver = (src: string) => ResolvedImage | undefined;
 
-const GALLERY_OPEN_RE =
-  /<div\s+class=["'](?:full-bleed-gallery|inline-gallery)["'][^>]*>/gi;
+const HTML_BLOCK_OPEN_RE =
+  /<div\s+class=["'](?:full-bleed-gallery|inline-gallery|problem-list)["'][^>]*>/gi;
 
 function findMatchingDivEnd(html: string, openEndIndex: number): number {
   let depth = 1;
@@ -42,10 +42,9 @@ function findMatchingDivEnd(html: string, openEndIndex: number): number {
 }
 
 function formatInline(text: string): string {
-  return escapeHtml(text).replaceAll(
-    /\*\*([^*]+)\*\*/g,
-    '<strong>$1</strong>',
-  );
+  return escapeHtml(text)
+    .replaceAll(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replaceAll(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
 }
 
 function renderBlockquote(block: string): string {
@@ -163,8 +162,8 @@ function extractGalleries(content: string): {
   let nextContent = '';
   let cursor = 0;
 
-  GALLERY_OPEN_RE.lastIndex = 0;
-  let openMatch = GALLERY_OPEN_RE.exec(content);
+  HTML_BLOCK_OPEN_RE.lastIndex = 0;
+  let openMatch = HTML_BLOCK_OPEN_RE.exec(content);
 
   while (openMatch) {
     const openStart = openMatch.index;
@@ -179,8 +178,8 @@ function extractGalleries(content: string): {
     nextContent += `\n\n@@GALLERY_${index}@@\n\n`;
     cursor = closeEnd;
 
-    GALLERY_OPEN_RE.lastIndex = cursor;
-    openMatch = GALLERY_OPEN_RE.exec(content);
+    HTML_BLOCK_OPEN_RE.lastIndex = cursor;
+    openMatch = HTML_BLOCK_OPEN_RE.exec(content);
   }
 
   nextContent += content.slice(cursor);

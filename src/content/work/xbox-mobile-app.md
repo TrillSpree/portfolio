@@ -7,7 +7,7 @@ role:
   - "Team Lead"
   - "Creative director"
 releaseDate: "November 2020"
-date: 2020-11-01
+date: 2026-01-01
 press:
   - publication: "Xbox Wire"
     articleTitle: "Xbox April Update: Buy Games in the App, Stream Your Own Console"
