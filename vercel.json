@@ -6,6 +6,10 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"miles-anderson_portfolio.pdf\""
         }
       ]
     }
